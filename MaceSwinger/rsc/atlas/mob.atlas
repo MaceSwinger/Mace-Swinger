@@ -1,0 +1,6 @@
+player_walk_1:0,0,32,48;
+player_walk_2:32,0,32,48;
+player_walk_3:64,0,32,48;
+player_walk_4:96,0,32,48;
+goblin:130,0,20,40;
+dick:160,0,21,42;

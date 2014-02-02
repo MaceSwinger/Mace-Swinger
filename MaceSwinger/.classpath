@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="rsc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/lwjgl-2.9.1/jar/AppleJavaExtensions.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl-2.9.1/jar/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl-2.9.1/jar/lwjgl.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl-2.9.1/jar/lzma.jar"/>
+	<classpathentry kind="lib" path="lib/Ents-1.1.jar" sourcepath="lib/Ents-1.1-src.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl-2.9.1/jar/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/Ents-1.1-src.jar"/>
+	<classpathentry kind="lib" path="lib/PNGDecoder.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kryo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kryonet"/>
+	<classpathentry kind="lib" path="lib/Mootilities (Basic)/Mootilities-basic.jar"/>
+	<classpathentry kind="lib" path="lib/MooCommands/MooCommands.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,34 @@
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswinger/MaceSwinger-launcher/Build/Launcher.jar</jar>
+  <outfile>/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswinger/MaceSwinger-launcher/Build/Launcher.exe</outfile>
+  <errTitle>You don&apos;t have Java installed!</errTitle>
+  <cmdLine>exe</cmdLine>
+  <chdir></chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>true</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon>/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswinger/MaceSwinger-launcher/src/res/icon/shield.ico</icon>
+  <jre>
+    <path></path>
+    <minVersion>1.6.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>1.0</txtFileVersion>
+    <fileDescription>Mace Swinger Launcher</fileDescription>
+    <copyright>Battle Donkey Games</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>1.0</txtProductVersion>
+    <productName>Mace Swinger Launcher</productName>
+    <companyName>Battle Donkey Games</companyName>
+    <internalName>Launcher</internalName>
+    <originalFilename>Launcher.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>

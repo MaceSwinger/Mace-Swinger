@@ -1,0 +1,14 @@
+g:Tile(grass)
+s:GravityTile(sand)
+p:PlayerSpawn()
+e:GoblinSpawn(goblin)
+d:GoblinSpawn(dick)
+{
+         sssss;
+              ;
+              ;
+              ;
+              ;
+ d p  e       ;
+gggggggg      ;
+}

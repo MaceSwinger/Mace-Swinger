@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/Universal Tween Engine/tween-engine-api.jar"/>
+	<classpathentry kind="lib" path="lib/SlidingLayout/SlidingLayout.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswingerjava/MaceSwinger-launcher/lib/SlidingLayout/doc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/Mootilities (Basic)/Mootilities-basic.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswingerjava/MaceSwinger-launcher/lib/Mootilities (Basic)/basic-doc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/MooBootstrap/MooBootstrap.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswingerjava/MaceSwinger-launcher/lib/MooBootstrap/doc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/Mootilities (Swing)/Mootilities-Swing.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswingerjava/MaceSwinger-launcher/lib/Mootilities (Swing)/swing-doc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

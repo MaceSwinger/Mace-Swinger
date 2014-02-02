@@ -1,0 +1,26 @@
+
+!ENTRY com.aptana.git.core 4 0 2014-02-02 17:26:03.075
+!MESSAGE (Build 3.4.2.1368863613) [ERROR] com.aptana.git.core/debug /Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswinger/.git/config (No such file or directory)
+!STACK 0
+java.io.FileNotFoundException: /Users/MeshulamSilk/Documents/Mace Swinger/Mace Swinger Java/maceswinger/.git/config (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:120)
+	at com.aptana.git.core.model.GitRepository.configContents(GitRepository.java:1308)
+	at com.aptana.git.core.model.GitRepository.remoteTrackingBranch(GitRepository.java:1246)
+	at com.aptana.git.core.model.GitRepository.matchingRemoteBranch(GitRepository.java:1197)
+	at com.aptana.git.core.model.GitRepository.commitsAhead(GitRepository.java:1178)
+	at com.aptana.git.ui.internal.GitLightweightDecorator.decorateProject(GitLightweightDecorator.java:254)
+	at com.aptana.git.ui.internal.GitLightweightDecorator.decorate(GitLightweightDecorator.java:128)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:263)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:81)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:347)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:371)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:331)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.aptana.git.core 4 1 2014-02-02 17:26:03.162
+!MESSAGE Errors occurred while refreshing git index
+!SUBENTRY 1 com.aptana.git.core 4 0 2014-02-02 17:26:03.162
+!MESSAGE Unable to run update-index: fatal: Not a git repository (or any of the parent directories): .git
