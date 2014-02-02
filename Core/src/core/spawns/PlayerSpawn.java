@@ -23,7 +23,7 @@ public class PlayerSpawn implements MapObject
 		return null;
 	}
 
-	public static Entity createNewPlayer(EntityList list, int x, int y)
+	public static Entity create(int x, int y)
 	{
 		Entity player = new Entity();
 		player.add(Core.Controllers.player);
@@ -45,7 +45,6 @@ public class PlayerSpawn implements MapObject
 
 		player.setRenderer(new AnimationRenderer("mob"));
 
-		list.add(player);
 		return player;
 	}
 }

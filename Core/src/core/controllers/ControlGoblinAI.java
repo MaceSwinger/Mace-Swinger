@@ -9,7 +9,8 @@ import com.maceswinger.Vector2;
 
 import core.Core;
 
-public class ControlGoblinAI implements Control {
+public class ControlGoblinAI implements Control
+{
 	@Override
 	public void update(Entity e, Object updateState)
 	{

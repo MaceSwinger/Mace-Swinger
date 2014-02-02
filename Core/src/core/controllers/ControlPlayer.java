@@ -27,14 +27,17 @@ public class ControlPlayer implements Control
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			JumpMOOFIXMEYOUFUCKFACE.jump(e, updateState, velocity);
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_S))
-			velocity.y -= 0.5f; //Why do we need this //Fuck you I was testing shit
-
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
+		{
+			System.out.println("left");
 			velocity.x -= 0.5f;
+		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
+		{
+			System.out.println("right");
 			velocity.x += 0.5f;
+		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_E))
 		{

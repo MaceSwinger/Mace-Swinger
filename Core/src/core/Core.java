@@ -29,10 +29,10 @@ public class Core extends Mod
 {
 	public static class Controllers
 	{
-		public static Controller gravity = Ents.newController("gravity", new ControlGravity());
-		public static Controller velocity = Ents.newController("velocity", new ControlVelocity());
-		public static Controller player = Ents.newController("player", new ControlPlayer());
-		public static Controller goblinAi = Ents.newController("goblin_ai", new ControlGoblinAI());
+		public static Controller gravity;
+		public static Controller velocity;
+		public static Controller player;
+		public static Controller goblinAi;
 	}
 
 	public static class Components
@@ -57,6 +57,13 @@ public class Core extends Mod
 	@Override
 	public void init()
 	{
+		System.out.println("Initializing core mod...");
+
+		Controllers.gravity = Ents.newController("gravity", new ControlGravity());
+		Controllers.velocity = Ents.newController("velocity", new ControlVelocity());
+		Controllers.player = Ents.newController("player", new ControlPlayer());
+		Controllers.goblinAi = Ents.newController("goblin_ai", new ControlGoblinAI());
+
 		Components.velocity = Ents.newComponent("velocity", new Vector2());
 		Components.rotation = Ents.newComponent("rotation", new FloatVal());
 		Components.collider = Ents.newComponent("rectangle", new Rectangle());
@@ -67,7 +74,7 @@ public class Core extends Mod
 		MapLoader.addMapObject("Tile", new Tile());
 		MapLoader.addMapObject("GravityTile", new GravityTile());
 
-		//Register.components.add(Components.velocity);
+		Register.components.add(Components.velocity);
 		Register.components.add(Components.rotation);
 		Register.components.add(Components.collider);
 		Register.components.add(Components.inventory);
@@ -81,7 +88,7 @@ public class Core extends Mod
 		{
 			public void run()
 			{
-				ServerProgram.entities.add(PlayerSpawn.createNewPlayer(ServerProgram.entities, (int) ServerProgram.playerSpawn.x, (int) ServerProgram.playerSpawn.y));
+				ServerProgram.entities.add(PlayerSpawn.create((int) ServerProgram.playerSpawn.x, (int) ServerProgram.playerSpawn.y));
 			}
 		};
 	}

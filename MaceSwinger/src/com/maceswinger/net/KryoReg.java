@@ -11,8 +11,21 @@ import com.maceswinger.test.inventory.Inventory;
 import com.maceswinger.test.inventory.Item;
 import com.maceswinger.test.inventory.ItemStack;
 
-public class KryoReg {
-	public static void reg(Kryo k) {
+/**
+ * Registers serializables
+ * 
+ * @since Feb 2, 2014
+ */
+public class KryoReg
+{
+	/**
+	 * Registers all the serializable classes
+	 * 
+	 * @param k
+	 *            Kryo instance to register to
+	 */
+	public static void reg(Kryo k)
+	{
 		k.register(Vector2.class);
 		k.register(Rectangle.class);
 		k.register(Camera.class);
@@ -23,9 +36,10 @@ public class KryoReg {
 		k.register(Animation.class);
 		k.register(Animation.Frame.class);
 		k.register(Animation.Frame[].class);
-		
+
 		k.register(MessageNewEntity.class);
 		k.register(MessageSetComponent.class);
+		k.register(MessageSetController.class);
 		k.register(MessageSetRenderer.class);
 	}
 }

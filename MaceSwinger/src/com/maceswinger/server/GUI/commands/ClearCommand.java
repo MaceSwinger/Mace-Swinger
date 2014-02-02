@@ -9,13 +9,13 @@ public class ClearCommand extends Command
 	@Override
 	public String getCommand()
 	{
-		return null;
+		return "/clear";
 	}
 
 	@Override
 	public String getHelpMessage()
 	{
-		return "/clear";
+		return "Clears the console window";
 	}
 
 	@Override

@@ -2,6 +2,11 @@ package com.maceswinger;
 
 import org.magnos.entity.ComponentValueFactory;
 
+/**
+ * 2D vector class.
+ * 
+ * @since Feb 2, 2014
+ */
 public class Vector2 implements ComponentValueFactory<Vector2>
 {
 	public float x;
@@ -43,8 +48,10 @@ public class Vector2 implements ComponentValueFactory<Vector2>
 
 		return to;
 	}
+
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "[" + x + ", " + y + "]";
 	}
 }

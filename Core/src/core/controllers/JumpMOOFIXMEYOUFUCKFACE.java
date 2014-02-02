@@ -11,8 +11,10 @@ import com.maceswinger.client.ClientProgram;
 
 import core.Core;
 
-public class JumpMOOFIXMEYOUFUCKFACE {
+public class JumpMOOFIXMEYOUFUCKFACE
+{
 	private static HashMap<Entity, Integer> jumpCooldowns = new HashMap<Entity, Integer>();
+
 	public static void jump(Entity e, Object updateState, Vector2 velocity)
 	{
 		if (jumpCooldowns.get(e) == null)

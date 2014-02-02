@@ -1,7 +1,6 @@
 package com.maceswinger.client;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -96,7 +95,7 @@ public class ClientProgram
 		}));
 		try
 		{
-			client.connect(5000, "localhost", 2650);
+			client.connect(5000, "localhost", 2650); //Where you'd put an ip
 		}
 		catch (IOException e1)
 		{
@@ -106,11 +105,6 @@ public class ClientProgram
 		{
 			if (Keyboard.isKeyDown(Keyboard.KEY_LMENU) && Keyboard.isKeyDown(Keyboard.KEY_F4))
 				break;
-			ArrayList<Integer> keys = new ArrayList<Integer>();
-			while (Keyboard.next())
-				if (Keyboard.getEventKeyState())
-					keys.add(Keyboard.getEventKey());
-			client.sendTCP(keys);
 			entities.update(this);
 			render();
 		}
@@ -147,8 +141,6 @@ public class ClientProgram
 		System.setProperty("org.lwjgl.librarypath", OSUtils.getDynamicStorageLocation() + "Mace Swinger/lwjgl/" + OSUtils.getCurrentOS().toString().toLowerCase());
 		System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
 
-		//		ModuleLoader.debugPasteCoreMod();
-		//		ModuleLoader.initMods();
 		try
 		{
 			new ClientProgram().run();

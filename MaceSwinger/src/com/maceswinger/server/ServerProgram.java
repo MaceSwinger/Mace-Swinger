@@ -23,6 +23,7 @@ import com.maceswinger.net.KryoReg;
 import com.maceswinger.net.Message;
 import com.maceswinger.net.MessageNewEntity;
 import com.maceswinger.net.MessageSetComponent;
+import com.maceswinger.net.MessageSetController;
 import com.maceswinger.net.MessageSetRenderer;
 import com.maceswinger.net.ServerShell;
 
@@ -57,6 +58,7 @@ public class ServerProgram
 		try
 		{
 			server.bind(port);
+			shell.serverStarted(port);
 		}
 		catch (IOException e)
 		{
@@ -66,13 +68,13 @@ public class ServerProgram
 		server.addListener(new Listener.LagListener(100, 300, new Listener()
 		{
 			@Override
-			public void connected(Connection connection)
+			public void connected(Connection connection) //Client connects to server
 			{
 				shell.clientConnected(new Client("Username", connection.getRemoteAddressTCP().getHostName()));
 
 				if (onPlayerConnect != null)
 					onPlayerConnect.run();
-				connections.put(connection, entities.at(entities.size() - 1));
+				//				connections.put(connection, entities.at(entities.size() - 1));
 
 				for (int i = 0; i < entities.size(); i++)
 				{
@@ -80,27 +82,29 @@ public class ServerProgram
 					connection.sendTCP(new MessageNewEntity());
 					for (int j = 0; j < Ents.getComponents().size(); j++)
 						if (e.has(Ents.getComponents().getDefinition(j)))
-						{
-							//							System.out.println(e.get(Ents.getComponents().getDefinition(j)).getClass());
 							connection.sendTCP(new MessageSetComponent(e.id, Ents.getComponents().getDefinition(j).id, e.get(Ents.getComponents().getDefinition(j))));
-						}
+					for (int j = 0; j < Ents.getControllers().size(); j++)
+						if (e.has(Ents.getControllers().getDefinition(j)))
+							connection.sendTCP(new MessageSetController(e.id, Ents.getControllers().getDefinition(j).id));
 					connection.sendTCP(new MessageSetRenderer(e.id, ((AnimationRenderer) e.getRenderer()).internalSpriteRenderer.spriteSheet));
 				}
 			}
 
-			@Override
-			public void received(Connection connection, Object o)
+			public void disconnected(Connection connection)
 			{
-				if (o.getClass() != FrameworkMessage.keepAlive.getClass() && o instanceof Message)
+				shell.clientDisconnected(null);
+			}
+
+			@Override
+			public void received(Connection connection, Object o) //Server receives message
+			{
+				if (o.getClass() != FrameworkMessage.keepAlive.getClass() && o instanceof Message) //Message handling
 				{
 					((Message) o).runServer(ServerProgram.this);
 					shell.message(new Client("Username", "IP"), o.getClass().getName());
 				}
 			}
 		}));
-
-		shell.serverStarted(port);
-
 		while (isRunning)
 		{
 			try
