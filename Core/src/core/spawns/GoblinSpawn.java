@@ -2,6 +2,7 @@ package core.spawns;
 
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityList;
+import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.Animation;
 import com.maceswinger.Components;
@@ -23,6 +24,7 @@ public class GoblinSpawn implements MapObject
 		goblin.add(Core.Components.collider);
 		goblin.add(Components.position);
 		goblin.add(Core.Components.velocity);
+		goblin.add(Core.Components.jumpCooldown);
 
 		goblin.add(Core.Controllers.gravity);
 		goblin.add(Core.Controllers.goblinAi);
@@ -33,6 +35,7 @@ public class GoblinSpawn implements MapObject
 		goblin.set(Components.animation, new Animation(new Animation.Frame(params[0], 5)));
 		goblin.set(Core.Components.collider, new Rectangle(x * 32 + 3, y * 32 + 1, 17, 48));
 		goblin.set(Components.position, new Vector2(x * 32, y * 32));
+		goblin.set(Core.Components.jumpCooldown, new IntVal(0));
 
 		goblin.setRenderer(new AnimationRenderer("mob"));
 

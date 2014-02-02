@@ -2,6 +2,8 @@ package com.maceswinger.net;
 
 import java.util.ArrayList;
 
+import org.magnos.entity.vals.IntVal;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.maceswinger.Animation;
 import com.maceswinger.Camera;
@@ -26,6 +28,7 @@ public class KryoReg
 	 */
 	public static void reg(Kryo k)
 	{
+		k.register(IntVal.class);
 		k.register(Vector2.class);
 		k.register(Rectangle.class);
 		k.register(Camera.class);

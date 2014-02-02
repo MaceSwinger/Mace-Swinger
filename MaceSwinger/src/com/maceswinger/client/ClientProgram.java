@@ -26,8 +26,8 @@ public class ClientProgram
 	public void run() throws LWJGLException
 	{
 		Display.setDisplayMode(new DisplayMode(800, 600));
-		Display.create();
 		Display.setTitle("Mace Swinger");
+		Display.create();
 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();

@@ -33,15 +33,14 @@ public class SpriteRenderer implements Renderer
 
 		Color col = Color.white();
 		if (e.has(Components.color))
-		{
 			col = e.get(Components.color);
-		}
 		if (e.has(Components.position))
 		{
 			Vector2 vec = e.get(Components.position);
-			if(e.has(Components.camera)) {
-				vec.x -= e.get(Components.camera).x;
-				vec.y -= e.get(Components.camera).y;
+			if (e.has(Components.camera))
+			{
+				e.get(Components.camera).x -= vec.x;
+				e.get(Components.camera).y -= vec.y;
 			}
 			t.draw(vec, col);
 		}

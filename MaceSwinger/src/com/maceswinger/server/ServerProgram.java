@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
-import java.util.HashMap;
 
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityList;
@@ -32,7 +31,6 @@ public class ServerProgram
 	private boolean isRunning;
 	private ServerShell shell;
 	public static Vector2 playerSpawn = new Vector2();
-	public static HashMap<Connection, Entity> connections = new HashMap<Connection, Entity>();
 	public static EntityList entities = new EntityList();
 	public static Runnable onPlayerConnect;
 	private static boolean modsInitialized = false;
@@ -74,7 +72,6 @@ public class ServerProgram
 
 				if (onPlayerConnect != null)
 					onPlayerConnect.run();
-				//				connections.put(connection, entities.at(entities.size() - 1));
 
 				for (int i = 0; i < entities.size(); i++)
 				{

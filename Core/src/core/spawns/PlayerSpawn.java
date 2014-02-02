@@ -2,6 +2,7 @@ package core.spawns;
 
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityList;
+import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.Animation;
 import com.maceswinger.Components;
@@ -13,6 +14,11 @@ import com.maceswinger.server.ServerProgram;
 
 import core.Core;
 
+/**
+ * Player handling class
+ * 
+ * @since Feb 2, 2014
+ */
 public class PlayerSpawn implements MapObject
 {
 	@Override
@@ -23,6 +29,15 @@ public class PlayerSpawn implements MapObject
 		return null;
 	}
 
+	/**
+	 * Creates a new player entity at given coordinates.
+	 * 
+	 * @param x
+	 *            X value of coordinate
+	 * @param y
+	 *            Y value of coordinate
+	 * @return A fully ready player entity
+	 */
 	public static Entity create(int x, int y)
 	{
 		Entity player = new Entity();
@@ -37,11 +52,13 @@ public class PlayerSpawn implements MapObject
 		player.add(Core.Components.collider);
 		player.add(Core.Components.velocity);
 		player.add(Core.Components.inventory);
+		player.add(Core.Components.jumpCooldown);
 
-		player.set(Components.camera, Core.mainCamera);
 		player.set(Components.animation, new Animation(new Animation.Frame("player_walk_1", 5), new Animation.Frame("player_walk_2", 5), new Animation.Frame("player_walk_3", 5), new Animation.Frame("player_walk_4", 5)));
-		player.set(Core.Components.collider, new Rectangle(x * 32 + 3, y * 32 + 1, 17, 48));
 		player.set(Components.position, new Vector2(x * 32, y * 32));
+		player.set(Components.camera, Core.mainCamera);
+		player.set(Core.Components.jumpCooldown, new IntVal(0));
+		player.set(Core.Components.collider, new Rectangle(x * 32 + 3, y * 32 + 1, 17, 48));
 
 		player.setRenderer(new AnimationRenderer("mob"));
 

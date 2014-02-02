@@ -4,6 +4,7 @@ import org.magnos.entity.Component;
 import org.magnos.entity.Controller;
 import org.magnos.entity.Ents;
 import org.magnos.entity.vals.FloatVal;
+import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.Camera;
 import com.maceswinger.Rectangle;
@@ -43,6 +44,7 @@ public class Core extends Mod
 		public static Component<Rectangle> collider;
 
 		public static Component<Inventory> inventory;
+		public static Component<IntVal> jumpCooldown;
 	}
 
 	public static Camera mainCamera = new Camera(0, 0);
@@ -57,8 +59,6 @@ public class Core extends Mod
 	@Override
 	public void init()
 	{
-		System.out.println("Initializing core mod...");
-
 		Controllers.gravity = Ents.newController("gravity", new ControlGravity());
 		Controllers.velocity = Ents.newController("velocity", new ControlVelocity());
 		Controllers.player = Ents.newController("player", new ControlPlayer());
@@ -68,6 +68,7 @@ public class Core extends Mod
 		Components.rotation = Ents.newComponent("rotation", new FloatVal());
 		Components.collider = Ents.newComponent("rectangle", new Rectangle());
 		Components.inventory = Ents.newComponent("inventory", new Inventory());
+		Components.jumpCooldown = Ents.newComponent("jumpCooldown", new IntVal());
 
 		MapLoader.addMapObject("PlayerSpawn", new PlayerSpawn());
 		MapLoader.addMapObject("GoblinSpawn", new GoblinSpawn());
@@ -78,6 +79,7 @@ public class Core extends Mod
 		Register.components.add(Components.rotation);
 		Register.components.add(Components.collider);
 		Register.components.add(Components.inventory);
+		Register.components.add(Components.jumpCooldown);
 
 		Register.controllers.add(Controllers.goblinAi);
 		Register.controllers.add(Controllers.velocity);

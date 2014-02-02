@@ -9,8 +9,6 @@ import com.maceswinger.Rectangle;
 import com.maceswinger.client.render.AnimationRenderer;
 import com.maceswinger.map.MapObject;
 
-import core.Core;
-
 public class Tile implements MapObject
 {
 	@Override
@@ -23,8 +21,8 @@ public class Tile implements MapObject
 		tile.add(Components.position);
 		tile.add(core.Core.Components.collider);
 
-		tile.add(Components.camera);
-		tile.set(Components.camera, Core.mainCamera);
+		//		tile.add(Components.camera);
+		//		tile.set(Components.camera, Core.mainCamera);
 
 		tile.setRenderer(new AnimationRenderer("tileset"));
 

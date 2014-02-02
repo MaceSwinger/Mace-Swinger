@@ -4,11 +4,11 @@ p:PlayerSpawn()
 e:GoblinSpawn(goblin)
 d:GoblinSpawn(dick)
 {
-g        ssssg;
-              ;
-              ;
-              ;
-              ;
- d p  e       ;
-gggggggg  g  g;
+g          s ss              ;
+                             ;
+                             ;
+g                           g;
+g           g         g     g;
+gd  p e   g       g  gggg d g;
+gggggggggggg gggggggggggggggg;
 }

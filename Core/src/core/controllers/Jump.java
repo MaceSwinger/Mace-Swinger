@@ -1,24 +1,24 @@
 package core.controllers;
 
-import java.util.HashMap;
-
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityIterator;
 import org.magnos.entity.filters.ComponentFilter;
+import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.Vector2;
 import com.maceswinger.client.ClientProgram;
 
 import core.Core;
 
-public class JumpMOOFIXMEYOUFUCKFACE
+public class Jump
 {
-	private static HashMap<Entity, Integer> jumpCooldowns = new HashMap<Entity, Integer>();
-
 	public static void jump(Entity e, Object updateState, Vector2 velocity)
 	{
-		if (jumpCooldowns.get(e) == null)
-			jumpCooldowns.put(e, 35);
+		if (!e.has(Core.Components.jumpCooldown))
+			return;
+		IntVal jumpCooldown = e.get(Core.Components.jumpCooldown);
+		if (jumpCooldown.v == 0)
+			jumpCooldown.v = 35;
 		else
 		{
 			ClientProgram program = (ClientProgram) updateState;
@@ -28,9 +28,7 @@ public class JumpMOOFIXMEYOUFUCKFACE
 						velocity.y = 16;
 			if (velocity.y > -1)
 				velocity.y += 0.3f;
-			jumpCooldowns.put(e, jumpCooldowns.get(e) - 1);
+			jumpCooldown.v -= 1;
 		}
-		if (jumpCooldowns.get(e) == 0)
-			jumpCooldowns.remove(e);
 	}
 }

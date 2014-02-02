@@ -2,7 +2,6 @@ package com.maceswinger;
 
 import org.magnos.entity.Component;
 import org.magnos.entity.Ents;
-import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.net.Register;
 
@@ -20,6 +19,4 @@ public class Components
 		Register.components.add(animation);
 		Register.components.add(camera);
 	}
-
-	public static Component<IntVal> jumpCooldown = Ents.newComponent("jumpCooldown", new IntVal());
 }
