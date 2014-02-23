@@ -1,7 +1,7 @@
 package com.maceswinger.net;
 
-import com.maceswinger.client.ClientProgram;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.client.GameClient;
+import com.maceswinger.server.GameServer;
 
 /**
  * Represents messages which get sent between server and client.
@@ -16,7 +16,7 @@ public abstract class Message
 	 * @param c
 	 *            Client in question
 	 */
-	public abstract void runClient(ClientProgram c);
+	public abstract void runClient(GameClient c);
 
 	/**
 	 * Code to run on the server when it receives this message.
@@ -24,5 +24,5 @@ public abstract class Message
 	 * @param s
 	 *            Server in question
 	 */
-	public abstract void runServer(ServerProgram s);
+	public abstract void runServer(GameServer s);
 }

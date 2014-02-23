@@ -40,7 +40,7 @@ import javax.swing.text.StyledDocument;
 
 import com.maceswinger.net.ServerShell;
 import com.maceswinger.server.Client;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.server.GameServer;
 import com.maceswinger.server.GUI.commands.BanCommand;
 import com.maceswinger.server.GUI.commands.ClearCommand;
 import com.maceswinger.server.GUI.commands.HelpCommand;
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame implements ServerShell
 {
 	public static MainFrame frame;
 
-	public ServerProgram server = new ServerProgram(this);
+	public GameServer server = new GameServer(this);
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -456,7 +456,7 @@ public class MainFrame extends JFrame implements ServerShell
 	@Override
 	public void serverStarted(int port)
 	{
-		lblIpWillGo.setText(ServerProgram.getIP());
+		lblIpWillGo.setText(GameServer.getIP());
 		addLine("Server started on port " + port);
 	}
 

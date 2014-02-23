@@ -4,8 +4,8 @@ import org.magnos.entity.Component;
 import org.magnos.entity.Entity;
 import org.magnos.entity.Ents;
 
-import com.maceswinger.client.ClientProgram;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.client.GameClient;
+import com.maceswinger.server.GameServer;
 
 public class MessageSetComponent extends Message
 {
@@ -26,7 +26,7 @@ public class MessageSetComponent extends Message
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void runClient(ClientProgram c)
+	public void runClient(GameClient c)
 	{
 		Entity e = c.entities.at(eid);
 
@@ -37,7 +37,7 @@ public class MessageSetComponent extends Message
 	}
 
 	@Override
-	public void runServer(ServerProgram s)
+	public void runServer(GameServer s)
 	{
 	}
 }

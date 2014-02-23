@@ -1,6 +1,10 @@
 package com.maceswinger.client;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+
+import javax.swing.JOptionPane;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -16,10 +20,15 @@ import com.esotericsoftware.kryonet.Listener;
 import com.maceswinger.net.KryoReg;
 import com.maceswinger.net.Message;
 import com.maceswinger.net.ServerShell;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.server.GameServer;
+import com.moomoohk.MooCommands.CommandsManager;
 import com.moomoohk.Mootilities.OSUtils.OSUtils;
 
-public class ClientProgram
+/**
+ * 
+ * @since Feb 4, 2014
+ */
+public class GameClient
 {
 	public EntityList entities = new EntityList();
 
@@ -39,7 +48,7 @@ public class ClientProgram
 
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		final ServerProgram internalServer = new ServerProgram(new ServerShell()
+		final GameServer internalServer = new GameServer(new ServerShell()
 		{
 
 			public void clientDisconnected(com.maceswinger.server.Client c)
@@ -90,7 +99,7 @@ public class ClientProgram
 			public void received(Connection connection, Object o)
 			{
 				if (o.getClass() != FrameworkMessage.keepAlive.getClass() && o instanceof Message)
-					((Message) o).runClient(ClientProgram.this);
+					((Message) o).runClient(GameClient.this);
 			}
 		}));
 		try
@@ -128,22 +137,35 @@ public class ClientProgram
 
 	public static void main(String[] args)
 	{
-		//Log.TRACE();
-		boolean needsToEatShit = true;
-		for (String arg : args)
-			if (arg.equals("-eatshitpirates"))
-				needsToEatShit = false;
-		if (needsToEatShit)
+		try
 		{
-			System.out.println("Please use the Mace Swinger Launcher to launch the game.");
+			HashMap<String, String> flags = CommandsManager.parseFlags(args);
+			if ((flags.containsKey("online") && flags.get("online").equals("true") && !flags.containsKey("sid")) || (flags.containsKey("sid") && !flags.containsKey("online")))
+			{
+				System.out.println("Please use the Mace Swinger Launcher to launch the game.");
+				JOptionPane.showMessageDialog(null, "Please use the Mace Swinger Launcher to launch the game.", "", JOptionPane.PLAIN_MESSAGE);
+				return;
+			}
+		}
+		catch (IllegalStateException e)
+		{
 			return;
 		}
-		System.setProperty("org.lwjgl.librarypath", OSUtils.getDynamicStorageLocation() + "Mace Swinger/lwjgl/" + OSUtils.getCurrentOS().toString().toLowerCase());
-		System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
+		try
+		{
+			System.setProperty("org.lwjgl.librarypath", OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "lwjgl" + File.separator + OSUtils.getCurrentOS().toString().toLowerCase());
+			System.setProperty("net.java.games.input.librarypath", System.getProperty("org.lwjgl.librarypath"));
+		}
+		catch (UnsatisfiedLinkError e)
+		{
+			System.out.println("LWJGL natives not found! Please use the launcher to download them.");
+			JOptionPane.showMessageDialog(null, "LWJGL natives not found! Please use the launcher to download them.", "", JOptionPane.PLAIN_MESSAGE);
+			return;
+		}
 
 		try
 		{
-			new ClientProgram().run();
+			new GameClient().run();
 		}
 		catch (LWJGLException e)
 		{

@@ -216,7 +216,7 @@ public class LauncherUtils
 		}
 	}
 
-	public static void launch()
+	public static void launch(boolean online)
 	{
 		System.out.println("Launching...");
 		if (new File(Resources.gamePath).exists())
@@ -225,12 +225,14 @@ public class LauncherUtils
 			try
 			{
 				List<String> args = new ArrayList<String>(Arrays.asList("java", "-jar", Resources.gamePath));
-				args.add("-eatshitpirates");
-				if (MainFrame.prefs.getBoolean("fullscreen", true))
-					args.add("-fullscreen");
+				args.add("online:" + online);
+				if (online)
+					args.add("sid:eatshitpirates");
+				args.add("fullscreen:" + MainFrame.prefs.getBoolean("fullscreen", true));
 				StringBuilder b = new StringBuilder();
 				for (String arg : args)
 					b.append(arg + " ");
+				System.out.println(b.toString());
 				new ProcessBuilder(args).start();
 			}
 			catch (IOException e)

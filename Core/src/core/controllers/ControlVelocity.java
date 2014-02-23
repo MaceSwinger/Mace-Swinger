@@ -7,7 +7,7 @@ import org.magnos.entity.filters.ComponentFilter;
 
 import com.maceswinger.Components;
 import com.maceswinger.Vector2;
-import com.maceswinger.client.ClientProgram;
+import com.maceswinger.client.GameClient;
 
 import core.Core;
 
@@ -15,7 +15,7 @@ public class ControlVelocity implements Control {
 	@Override
 	public void update(Entity e, Object updateState)
 	{
-		ClientProgram program = (ClientProgram) updateState;
+		GameClient program = (GameClient) updateState;
 		if (e.has(Components.position) && e.has(core.Core.Components.velocity))
 		{
 			Vector2 pos = e.get(Components.position);

@@ -13,7 +13,7 @@ import com.maceswinger.map.MapLoader;
 import com.maceswinger.mods.Mod;
 import com.maceswinger.mods.ModInfo;
 import com.maceswinger.net.Register;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.server.GameServer;
 import com.maceswinger.test.inventory.Inventory;
 
 import core.controllers.ControlGoblinAI;
@@ -86,11 +86,11 @@ public class Core extends Mod
 		Register.controllers.add(Controllers.gravity);
 		Register.controllers.add(Controllers.player);
 
-		ServerProgram.onPlayerConnect = new Runnable()
+		GameServer.onPlayerConnect = new Runnable()
 		{
 			public void run()
 			{
-				ServerProgram.entities.add(PlayerSpawn.create((int) ServerProgram.playerSpawn.x, (int) ServerProgram.playerSpawn.y));
+				GameServer.entities.add(PlayerSpawn.create((int) GameServer.playerSpawn.x, (int) GameServer.playerSpawn.y));
 			}
 		};
 	}

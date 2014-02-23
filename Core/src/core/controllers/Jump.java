@@ -6,7 +6,7 @@ import org.magnos.entity.filters.ComponentFilter;
 import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.Vector2;
-import com.maceswinger.client.ClientProgram;
+import com.maceswinger.client.GameClient;
 
 import core.Core;
 
@@ -21,7 +21,7 @@ public class Jump
 			jumpCooldown.v = 35;
 		else
 		{
-			ClientProgram program = (ClientProgram) updateState;
+			GameClient program = (GameClient) updateState;
 			for (Entity ent : new EntityIterator(program.entities, new ComponentFilter(Core.Components.collider)))
 				if (ent != e)
 					if (e.get(Core.Components.collider).overlaps(new Vector2(0, -1), ent.get(Core.Components.collider)))

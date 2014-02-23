@@ -77,7 +77,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				LauncherUtils.launch();
+				LauncherUtils.launch(true);
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnPlay, 14, SpringLayout.NORTH, this);

@@ -26,7 +26,7 @@ public class Assets
 
 		private void loadSprites(String spriteSheet)
 		{
-			Scanner s = new Scanner(InternalFile.get("atlas/" + spriteSheet + ".atlas"));
+			Scanner s = new Scanner(Resources.get("atlas/" + spriteSheet + ".atlas"));
 			while (s.hasNextLine())
 			{
 				String line = s.nextLine();
@@ -50,7 +50,7 @@ public class Assets
 			InputStream in = null;
 			try
 			{
-				in = InternalFile.get("image/" + spriteSheet + ".png");
+				in = Resources.get("image/" + spriteSheet + ".png");
 				PNGDecoder decoder = new PNGDecoder(in);
 
 				ByteBuffer buf = ByteBuffer.allocateDirect(4 * decoder.getWidth() * decoder.getHeight());

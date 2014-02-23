@@ -130,7 +130,7 @@ public class LoginPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				LauncherUtils.launch();
+				LauncherUtils.launch(false);
 			}
 		});
 

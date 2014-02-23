@@ -6,8 +6,13 @@ import java.util.Scanner;
 
 import org.magnos.entity.EntityList;
 
-import com.maceswinger.InternalFile;
+import com.maceswinger.Resources;
 
+/**
+ * Loads maps from file.
+ * 
+ * @since Feb 5, 2014
+ */
 public class MapLoader
 {
 	static HashMap<String, MapObject> mapObjects = new HashMap<String, MapObject>();
@@ -31,7 +36,7 @@ public class MapLoader
 
 	public static void loadMap(EntityList outMap, String path)
 	{
-		Scanner s = new Scanner(InternalFile.get(path));
+		Scanner s = new Scanner(Resources.get(path));
 
 		HashMap<Character, MapObjectPlusParams> declares = new HashMap<Character, MapObjectPlusParams>();
 		ArrayList<ArrayList<String>> map = new ArrayList<ArrayList<String>>();

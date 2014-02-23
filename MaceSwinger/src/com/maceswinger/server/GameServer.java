@@ -26,7 +26,12 @@ import com.maceswinger.net.MessageSetController;
 import com.maceswinger.net.MessageSetRenderer;
 import com.maceswinger.net.ServerShell;
 
-public class ServerProgram
+/**
+ * Game server's core
+ * 
+ * @since Feb 4, 2014
+ */
+public class GameServer
 {
 	private boolean isRunning;
 	private ServerShell shell;
@@ -35,12 +40,26 @@ public class ServerProgram
 	public static Runnable onPlayerConnect;
 	private static boolean modsInitialized = false;
 
-	public ServerProgram(ServerShell shell)
+	/**
+	 * Constructor.
+	 * 
+	 * @param shell
+	 *            Server shell to use
+	 */
+	public GameServer(ServerShell shell)
 	{
+		if (shell == null)
+			throw new IllegalArgumentException("Shell can't be null!");
 		isRunning = false;
 		this.shell = shell;
 	}
 
+	/**
+	 * Starts the server.
+	 * 
+	 * @param port
+	 *            Port to start the server on
+	 */
 	public void run(int port)
 	{
 		if (!modsInitialized) //Either this way or dispose of the mods when the server is closed.
@@ -61,6 +80,7 @@ public class ServerProgram
 		catch (IOException e)
 		{
 			shell.portInUse(port);
+			return;
 		}
 		MapLoader.loadMap(entities, "map/test.map");
 		server.addListener(new Listener.LagListener(100, 300, new Listener()
@@ -92,12 +112,11 @@ public class ServerProgram
 				shell.clientDisconnected(null);
 			}
 
-			@Override
 			public void received(Connection connection, Object o) //Server receives message
 			{
 				if (o.getClass() != FrameworkMessage.keepAlive.getClass() && o instanceof Message) //Message handling
 				{
-					((Message) o).runServer(ServerProgram.this);
+					((Message) o).runServer(GameServer.this);
 					shell.message(new Client("Username", "IP"), o.getClass().getName());
 				}
 			}
@@ -119,7 +138,7 @@ public class ServerProgram
 
 	public static void main(String[] args)
 	{
-		new ServerProgram(new ServerShell()
+		new GameServer(new ServerShell()
 		{
 
 			@Override

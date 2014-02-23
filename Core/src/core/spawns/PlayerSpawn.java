@@ -10,7 +10,7 @@ import com.maceswinger.Rectangle;
 import com.maceswinger.Vector2;
 import com.maceswinger.client.render.AnimationRenderer;
 import com.maceswinger.map.MapObject;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.server.GameServer;
 
 import core.Core;
 
@@ -24,8 +24,8 @@ public class PlayerSpawn implements MapObject
 	@Override
 	public Object spawn(EntityList list, int x, int y, String... params)
 	{
-		ServerProgram.playerSpawn.x = x;
-		ServerProgram.playerSpawn.y = y;
+		GameServer.playerSpawn.x = x;
+		GameServer.playerSpawn.y = y;
 		return null;
 	}
 

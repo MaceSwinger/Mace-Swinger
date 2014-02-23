@@ -4,8 +4,8 @@ import org.magnos.entity.Controller;
 import org.magnos.entity.Entity;
 import org.magnos.entity.Ents;
 
-import com.maceswinger.client.ClientProgram;
-import com.maceswinger.server.ServerProgram;
+import com.maceswinger.client.GameClient;
+import com.maceswinger.server.GameServer;
 
 public class MessageSetController extends Message
 {
@@ -29,7 +29,7 @@ public class MessageSetController extends Message
 	}
 
 	@Override
-	public void runClient(ClientProgram c)
+	public void runClient(GameClient c)
 	{
 		Entity e = c.entities.at(eid);
 		Controller cont = Ents.getControllers().getDefinition(cid);
@@ -38,7 +38,7 @@ public class MessageSetController extends Message
 	}
 
 	@Override
-	public void runServer(ServerProgram s)
+	public void runServer(GameServer s)
 	{
 	}
 }

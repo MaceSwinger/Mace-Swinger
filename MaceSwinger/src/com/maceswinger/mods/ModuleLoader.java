@@ -53,13 +53,13 @@ public class ModuleLoader
 	{
 		try
 		{
-			loader = new URLClassLoader(new URL[] { new File(OSUtils.getDynamicStorageLocation() + "Mace Swinger/modules").toURL() });
+			loader = new URLClassLoader(new URL[] { new File(OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "modules").toURL() }); //TODO: Fix this deprecated usage
 		}
 		catch (MalformedURLException e1)
 		{
 			e1.printStackTrace();
 		}
-		File file = new File(OSUtils.getDynamicStorageLocation() + "Mace Swinger/modules");
+		File file = new File(OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "modules");
 		String[] directories = file.list(new FilenameFilter()
 		{
 			@Override
@@ -70,17 +70,13 @@ public class ModuleLoader
 		});
 		for (int i = 0; i < directories.length; i++)
 		{
-			for (File f : getFilesInFolder(new File(file.toString() + "/" + directories[i])))
+			for (File f : getFilesInFolder(new File(file.toString() + File.separator + directories[i])))
 			{
-				String c = f.toString().substring((OSUtils.getDynamicStorageLocation() + "Mace Swinger/modules").length() + 1).replace('/', '.');
+				String c = f.toString().substring((OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "modules").length() + 1).replace(File.separatorChar, '.');
 				if (!c.endsWith(".class"))
-				{
 					continue;
-				}
 				if (c.contains("$"))
-				{
 					continue;
-				}
 				c = c.substring(0, c.length() - 6);
 				Object o = null;
 				try
