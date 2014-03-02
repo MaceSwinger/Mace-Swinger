@@ -1,0 +1,38 @@
+inventory (components):
+- no item stacking
+- gold pool
+- xp pool
+- passion meter
+- quest item pool
+- mace pool (size is upgradable)
+
+maces (xml/xsd):
+- 3 components:
+ - shaft: swing range
+ - head: damage
+ - handle: attack speed
+- 9 materials:
+ - plastic
+ - wood
+ - stone
+ - copper
+ - iron
+ - silver
+ - gold
+ - platinum
+ - diamond
+- buffs:
+ - 3 elemental effect chance (player applied) up to level 4:
+  - fire (retain speed, normal damage over time)
+  - frost (completely frozen, no damage over time)
+  - poison (slower speed, less damage over time)
+ - 5 qualities (comes with the mace) (diminishes over use):
+  - shitty
+  - used
+  - average
+  - fine
+  - excellent
+- attributes (purely aesthetic):
+ - name
+ - tagline
+
