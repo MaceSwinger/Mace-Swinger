@@ -18,7 +18,7 @@ public class MaceTestMain {
 			MaceShaft b = new MaceShaft(rand.nextInt(5));
 			MaceHandle c = new MaceHandle(rand.nextInt(5));
 			maces[i]= new ItemMace(c,b,a,rand.nextInt(5),rand.nextInt(4)-1);
-			System.out.println(maces[i].getName());
+			System.out.println(maces[i].getName()+"\t\tDmg: "+maces[i].getDamage());
 		}
 	}
 		

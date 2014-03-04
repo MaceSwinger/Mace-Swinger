@@ -17,7 +17,9 @@ public class ItemMace extends Item {
 		this.ELEMENTAL = EnumElemental.getElemental(elem);
 	}
 
-
+	public int getDamage(){
+		return head.MATERIAL.getPower()+this.CONDITION.getPower();
+	}
 	@Override
 	public String getName() {
 		if(ELEMENTAL != EnumElemental.INVALID){

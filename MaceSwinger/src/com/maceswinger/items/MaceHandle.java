@@ -1,10 +1,9 @@
 package com.maceswinger.items;
 
 public class MaceHandle {
-
-	EnumMaterial MATERIAL;
+	Material MATERIAL;
 	
 	public MaceHandle(int mat){
-		this.MATERIAL=EnumMaterial.getMaterial(mat);
+		this.MATERIAL=Material.getMaterial(mat);
 	}
 }

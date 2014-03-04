@@ -1,10 +1,9 @@
 package com.maceswinger.items;
 
 public class MaceShaft {
-	
-EnumMaterial MATERIAL;
+	Material MATERIAL;
 	
 	public MaceShaft(int mat){
-		this.MATERIAL=EnumMaterial.getMaterial(mat);
+		this.MATERIAL=Material.getMaterial(mat);
 	}
 }
