@@ -37,7 +37,7 @@ public class SpriteRenderer implements Renderer
 			col = e.get(Components.color);
 		if (e.has(Components.position))
 		{
-			Vector2 pos = e.get(Components.position);
+			Vector2 pos = new Vector2(e.get(Components.position));
 			pos.x -= mainCamera.x;
 			pos.y -= mainCamera.y;
 			t.draw(pos, col);
