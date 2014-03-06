@@ -6,7 +6,6 @@ import org.magnos.entity.vals.IntVal;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.maceswinger.Animation;
-import com.maceswinger.Camera;
 import com.maceswinger.Rectangle;
 import com.maceswinger.Vector2;
 import com.maceswinger.test.inventory.Inventory;
@@ -31,7 +30,6 @@ public class KryoReg
 		k.register(IntVal.class);
 		k.register(Vector2.class);
 		k.register(Rectangle.class);
-		k.register(Camera.class);
 		k.register(Inventory.class);
 		k.register(ItemStack.class);
 		k.register(Item.class);

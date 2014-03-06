@@ -2,6 +2,7 @@ package com.maceswinger;
 
 import org.magnos.entity.Component;
 import org.magnos.entity.Ents;
+import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.net.Register;
 
@@ -11,12 +12,12 @@ public class Components
 	public static Component<Color> color = Ents.newComponent("color", new Color());
 	public static Component<Sprite> sprite = Ents.newComponent("sprite", new Sprite());
 	public static Component<Animation> animation = Ents.newComponent("animation", new Animation());
-	public static Component<Camera> camera = Ents.newComponent("camera", new Camera());
+	public static Component<IntVal> butt = Ents.newComponent("butt", new IntVal());
 	{
 		Register.components.add(position);
 		Register.components.add(color);
 		Register.components.add(sprite);
 		Register.components.add(animation);
-		Register.components.add(camera);
+		Register.components.add(butt);
 	}
 }

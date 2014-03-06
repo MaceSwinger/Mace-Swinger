@@ -11,6 +11,7 @@ import com.maceswinger.Vector2;
 
 public class SpriteRenderer implements Renderer
 {
+	public static Vector2 mainCamera;
 	public String spriteSheet;
 	public String sprite;
 
@@ -36,13 +37,10 @@ public class SpriteRenderer implements Renderer
 			col = e.get(Components.color);
 		if (e.has(Components.position))
 		{
-			Vector2 vec = e.get(Components.position);
-			if (e.has(Components.camera))
-			{
-				e.get(Components.camera).x -= vec.x;
-				e.get(Components.camera).y -= vec.y;
-			}
-			t.draw(vec, col);
+			Vector2 pos = e.get(Components.position);
+			pos.x -= mainCamera.x;
+			pos.y -= mainCamera.y;
+			t.draw(pos, col);
 		}
 	}
 

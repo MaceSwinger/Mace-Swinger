@@ -21,9 +21,6 @@ public class Tile implements MapObject
 		tile.add(Components.position);
 		tile.add(core.Core.Components.collider);
 
-		//		tile.add(Components.camera);
-		//		tile.set(Components.camera, Core.mainCamera);
-
 		tile.setRenderer(new AnimationRenderer("tileset"));
 
 		tile.get(Components.position).x = x * 32;

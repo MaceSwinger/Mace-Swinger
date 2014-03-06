@@ -6,7 +6,6 @@ import org.magnos.entity.Ents;
 import org.magnos.entity.vals.FloatVal;
 import org.magnos.entity.vals.IntVal;
 
-import com.maceswinger.Camera;
 import com.maceswinger.Rectangle;
 import com.maceswinger.Vector2;
 import com.maceswinger.map.MapLoader;
@@ -46,8 +45,6 @@ public class Core extends Mod
 		public static Component<Inventory> inventory;
 		public static Component<IntVal> jumpCooldown;
 	}
-
-	public static Camera mainCamera = new Camera(0, 0);
 
 	@Override
 	public void info()

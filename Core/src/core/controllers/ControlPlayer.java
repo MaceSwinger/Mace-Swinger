@@ -6,9 +6,9 @@ import org.lwjgl.input.Keyboard;
 import org.magnos.entity.Control;
 import org.magnos.entity.Entity;
 
-import com.maceswinger.Camera;
 import com.maceswinger.Components;
 import com.maceswinger.Vector2;
+import com.maceswinger.client.render.SpriteRenderer;
 import com.maceswinger.test.inventory.Inventory;
 import com.maceswinger.test.inventory.Item;
 import com.maceswinger.test.inventory.ItemStack;
@@ -22,7 +22,6 @@ public class ControlPlayer implements Control
 	{
 		Vector2 velocity = e.get(Core.Components.velocity);
 		Vector2 pos = e.get(Components.position);
-		Camera cam = e.get(Components.camera);
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			Jump.jump(e, updateState, velocity);
@@ -51,7 +50,10 @@ public class ControlPlayer implements Control
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
 			e.get(Core.Components.inventory).addItem(new Item("name" + new Random().nextInt(10), 64, false));
 
-		cam.x = pos.x - 400 + 16;
-		cam.y = pos.y - 300 + 16;
+		if (Keyboard.isKeyDown(Keyboard.KEY_F))
+			System.out.println(pos.x + " " + pos.y);
+
+		SpriteRenderer.mainCamera.x = pos.x - 400 + 16;
+		SpriteRenderer.mainCamera.y = pos.y - 300 + 16;
 	}
 }
