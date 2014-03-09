@@ -14,6 +14,7 @@ import static org.lwjgl.openal.AL10.alSourcei;
 import java.io.BufferedInputStream;
 
 
+import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.AL11;
 import org.lwjgl.util.WaveData;
 
@@ -21,8 +22,9 @@ import com.maceswinger.Resources;
 
 public class Sound {
 
-	public static final String[] sounds = {"test"};
+	public static final String[] sounds = {"test","music"};
 	public static final int[] soundID = new int[sounds.length];
+	public static boolean[] isPlaying = new boolean[sounds.length];
 	public static void loadSounds() {
 		for (int i = 0; i < sounds.length; i++) {
 			WaveData data = null;
@@ -47,7 +49,13 @@ public class Sound {
 		AL11.alSpeedOfSound(2);
 		alSourcef(soundID[id], AL_GAIN, volume);
 		alSourcePlay(soundID[id]);
+		isPlaying[id]=true;
 
+	}
+	public static void pause(int id, float volume) {
+		alSourcef(soundID[id], AL_GAIN, volume);
+		AL10.alSourcePause(soundID[id]);
+		isPlaying[id]=false;
 	}
 
 }

@@ -5,16 +5,16 @@ public class ItemMace extends Item {
 	private MaceHandle handle;
 	private MaceShaft shaft;
 	private MaceHead head;
-	EnumCondition CONDITION;
-	EnumElemental ELEMENTAL;
+	Condition CONDITION;
+	Elemental ELEMENTAL;
 
 	public ItemMace(MaceHandle handle, MaceShaft shaft, MaceHead head,
 			int condition, int elem) {
 		this.handle = handle;
 		this.head = head;
 		this.shaft = shaft;
-		this.CONDITION = EnumCondition.getCondition(condition);
-		this.ELEMENTAL = EnumElemental.getElemental(elem);
+		this.CONDITION = Condition.getCondition(condition);
+		this.ELEMENTAL = Elemental.getElemental(elem);
 	}
 
 	public int getDamage(){
@@ -22,7 +22,7 @@ public class ItemMace extends Item {
 	}
 	@Override
 	public String getName() {
-		if(ELEMENTAL != EnumElemental.INVALID){
+		if(ELEMENTAL != null){
 		return this.CONDITION.getName() + " " + this.head.MATERIAL.getName()
 				+ " Mace of " + this.ELEMENTAL.getName();
 		}else{

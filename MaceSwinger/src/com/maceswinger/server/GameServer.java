@@ -82,7 +82,7 @@ public class GameServer
 			shell.portInUse(port);
 			return;
 		}
-		MapLoader.loadMap(entities, "map/test2.map");
+		MapLoader.loadMap(entities, "map/test.map");
 		server.addListener(new Listener.LagListener(100, 300, new Listener()
 		{
 			@Override
