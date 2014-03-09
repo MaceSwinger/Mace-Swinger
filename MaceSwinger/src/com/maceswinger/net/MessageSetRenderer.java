@@ -22,6 +22,7 @@ public class MessageSetRenderer extends Message
 	@Override
 	public void runClient(GameClient c)
 	{
+		System.out.println(eid + " " + spritesheet);
 		c.entities.at(eid).setRenderer(new AnimationRenderer(spritesheet));
 	}
 

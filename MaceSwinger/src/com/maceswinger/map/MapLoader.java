@@ -32,6 +32,15 @@ public class MapLoader
 			this.mo = mo;
 			this.params = params;
 		}
+
+		public String toString()
+		{
+			String params = "[";
+			for (String param : this.params)
+				params += param + ", ";
+			params = params.substring(0, params.length() - 2) + "]";
+			return this.mo + params;
+		}
 	}
 
 	public static void loadMap(EntityList outMap, String path)
@@ -52,7 +61,6 @@ public class MapLoader
 				if (mop != null)
 					mop.mo.spawn(outMap, j, map.size() - i, mop.params);
 			}
-
 		s.close();
 	}
 

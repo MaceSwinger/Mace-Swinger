@@ -11,7 +11,8 @@ import com.maceswinger.client.GameClient;
 
 import core.Core;
 
-public class ControlVelocity implements Control {
+public class ControlVelocity implements Control
+{
 	@Override
 	public void update(Entity e, Object updateState)
 	{

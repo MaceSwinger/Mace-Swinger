@@ -82,7 +82,7 @@ public class GameServer
 			shell.portInUse(port);
 			return;
 		}
-		MapLoader.loadMap(entities, "map/test.map");
+		MapLoader.loadMap(entities, "map/test2.map");
 		server.addListener(new Listener.LagListener(100, 300, new Listener()
 		{
 			@Override
@@ -193,7 +193,7 @@ public class GameServer
 	{
 		try
 		{
-			URL url = new URL("http://automation.whatismyip.com/n09230945.asp");
+			URL url = new URL("http://ipecho.net/plain");
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 			String ipString = new String();
 			ipString = (in.readLine()).trim();

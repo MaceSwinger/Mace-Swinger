@@ -29,4 +29,9 @@ public class Tile implements MapObject
 		list.add(tile);
 		return tile;
 	}
+
+	public String toString()
+	{
+		return "Tile";
+	}
 }

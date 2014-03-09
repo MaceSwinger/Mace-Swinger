@@ -40,4 +40,9 @@ public class GoblinSpawn implements MapObject
 		list.add(goblin);
 		return goblin;
 	}
+
+	public String toString()
+	{
+		return "Goblin";
+	}
 }

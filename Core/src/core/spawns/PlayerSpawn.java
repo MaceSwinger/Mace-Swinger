@@ -48,7 +48,6 @@ public class PlayerSpawn implements MapObject
 
 		player.add(Components.animation);
 		player.add(Components.position);
-		player.add(Components.butt);
 
 		player.add(Core.Components.collider);
 		player.add(Core.Components.velocity);
@@ -65,5 +64,10 @@ public class PlayerSpawn implements MapObject
 		SpriteRenderer.mainCamera = new Vector2(x, y);
 
 		return player;
+	}
+
+	public String toString()
+	{
+		return "Player Spawn";
 	}
 }

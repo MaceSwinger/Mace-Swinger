@@ -32,6 +32,8 @@ public class SpriteRenderer implements Renderer
 	{
 		Sprite t = Assets.get(spriteSheet, sprite);
 
+		System.out.println(sprite);
+
 		Color col = Color.white();
 		if (e.has(Components.color))
 			col = e.get(Components.color);

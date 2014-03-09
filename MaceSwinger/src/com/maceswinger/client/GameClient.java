@@ -104,7 +104,7 @@ public class GameClient
 		}));
 		try
 		{
-			client.connect(5000, "localhost", 2650); //Where you'd put an ip
+			client.connect(5000, "localhost", 2650); //Where you'd put an ip TODO: Fix synchronization bug
 		}
 		catch (IOException e1)
 		{
