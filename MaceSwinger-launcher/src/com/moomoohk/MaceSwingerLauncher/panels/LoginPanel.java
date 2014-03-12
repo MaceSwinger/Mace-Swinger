@@ -8,15 +8,11 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLHandshakeException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -32,7 +28,6 @@ import com.moomoohk.MaceSwingerLauncher.utils.LauncherUtils;
 import com.moomoohk.MaceSwingerLauncher.utils.Resources;
 import com.moomoohk.MaceSwingerLauncher.utils.SSLUtils;
 import com.moomoohk.Mootilities.ExceptionHandling.ExceptionDisplayDialog;
-import com.moomoohk.Mootilities.OSUtils.OSUtils;
 
 /**
  * 
@@ -91,7 +86,7 @@ public class LoginPanel extends JPanel
 		add(lblPassword);
 
 		txtPassword = new JPasswordField();
-		txtPassword.setEchoChar('¥');
+		txtPassword.setEchoChar('\u2022');
 		txtPassword.setFont(new Font(Resources.PTSans.getName(), Font.BOLD, 14));
 		txtPassword.setBackground(Resources.background.brighter());
 		txtPassword.setForeground(Resources.foreground);
@@ -184,35 +179,21 @@ public class LoginPanel extends JPanel
 							btnLogin.setText("Resolving request...");
 							System.out.println("Connecting to the Mace Swinger A.R.I.S.T.O.T.L.E. login API...");
 
-							String charset = "UTF-8";
-							String query = String.format("?user=%s&pass=%s", URLEncoder.encode(txtUser.getText().trim(), charset), URLEncoder.encode(CryptoUtils.toSHA512(new String(txtPassword.getPassword()).getBytes()).trim(), charset));
+							String response = LauncherUtils.connect("login", new String[] { "user", "pass" }, new String[] { txtUser.getText().trim(), CryptoUtils.toSHA512(new String(txtPassword.getPassword()).getBytes()).trim() });
+							Scanner s = new Scanner(response);
+							s.useDelimiter(":");
 
-							HttpsURLConnection connection = (HttpsURLConnection) new URL("https://maceswinger.com/utils/login.php" + query).openConnection();
-							connection.setDoOutput(true);
-							connection.setConnectTimeout(15 * 1000);
-							connection.setReadTimeout(15 * 1000);
-							connection.setRequestProperty("Accept-Charset", charset);
-							connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
-							connection.setRequestProperty("User-Agent", "Mace Swinger Launcher/1.0 (" + OSUtils.getCurrentOS().toString() + ")");
-							connection.setRequestMethod("POST");
-
-							BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-							String inputLine;
-							final StringBuilder inputLines = new StringBuilder("");
-							btnLogin.setText("Receiving response...");
-							while ((inputLine = in.readLine()) != null)
-								inputLines.append(inputLine.trim() + "\n");
-							in.close();
-
-							if (inputLines.toString().trim().equals("[true]"))
+							if (s.hasNext() && s.next().equals("true"))
 							{
+								MainFrame.sid = s.next();
+								System.out.println("sid:" + MainFrame.sid);
 								btnLogin.setText("Logged in!");
 								LauncherUtils.initiateBootstrap(false);
 							}
 							else
 							{
 								reset(false);
-								new ResponseDialog(MainFrame.mainFrame, "Server returned:", inputLines.toString().trim()).setVisible(true);
+								new ResponseDialog(MainFrame.mainFrame, "Server returned:", response).setVisible(true);
 							}
 						}
 						catch (UnknownHostException e)

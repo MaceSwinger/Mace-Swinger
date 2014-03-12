@@ -1,16 +1,22 @@
 package com.moomoohk.MaceSwingerLauncher.utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.SocketException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import aurelienribon.slidinglayout.SLKeyframe.Callback;
 
@@ -219,34 +225,91 @@ public class LauncherUtils
 	public static void launch(boolean online)
 	{
 		System.out.println("Launching...");
-		if (new File(Resources.gamePath).exists())
+		if (checkSession())
 		{
-			MainFrame.mainFrame.setVisible(false);
-			try
+			if (new File(Resources.gamePath).exists())
 			{
-				List<String> args = new ArrayList<String>(Arrays.asList("java", "-jar", Resources.gamePath));
-				args.add("online:" + online);
-				if (online)
-					args.add("sid:eatshitpirates");
-				args.add("fullscreen:" + MainFrame.prefs.getBoolean("fullscreen", true));
-				StringBuilder b = new StringBuilder();
-				for (String arg : args)
-					b.append(arg + " ");
-				System.out.println(b.toString());
-				new ProcessBuilder(args).start();
+				MainFrame.mainFrame.setVisible(false);
+				try
+				{
+					List<String> args = new ArrayList<String>(Arrays.asList("java", "-jar", Resources.gamePath));
+					args.add("online:" + online);
+					if (online)
+						args.add("sid:" + MainFrame.sid);
+					args.add("fullscreen:" + MainFrame.prefs.getBoolean("fullscreen", true));
+					StringBuilder b = new StringBuilder();
+					for (String arg : args)
+						b.append(arg + " ");
+					System.out.println(b.toString());
+					new ProcessBuilder(args).start();
+				}
+				catch (IOException e)
+				{
+					new ExceptionDisplayDialog(MainFrame.mainFrame, e);
+				}
+				System.exit(0);
 			}
-			catch (IOException e)
-			{
-				new ExceptionDisplayDialog(MainFrame.mainFrame, e);
-			}
-			System.exit(0);
+			else
+				new ResponseDialog(MainFrame.mainFrame, "Error:", "The game file appears to be missing/corrupt!\nRedownload it via the settings menu.").setVisible(true);
 		}
 		else
-			new ResponseDialog(MainFrame.mainFrame, "Error:", "The game file appears to be missing/corrupt!\nRedownload it via the settings menu.").setVisible(true);
+		{
+			new ResponseDialog(MainFrame.mainFrame, "Error:", "Your session has timed out (or is otherwise invalid)!\nPlease log in again.").setVisible(true);
+			MainFrame.mainFrame.animateBetween(View.MENU, View.LOGIN, null);
+		}
 	}
 
 	public static boolean isGameInstalled()
 	{
 		return new File(Resources.gamePath).exists();
+	}
+
+	public static boolean checkSession()
+	{
+		try
+		{
+			Scanner s = new Scanner(connect("sessinfo", new String[] { "sid" }, new String[] { MainFrame.sid }));
+			s.useDelimiter(":");
+			if (s.hasNext() && s.nextBoolean())
+			{
+				connect("keepalive", new String[] { "sid" }, new String[] { MainFrame.sid });
+				return true;
+			}
+		}
+		catch (Exception e)
+		{
+			new ExceptionDisplayDialog(MainFrame.mainFrame, e).setVisible(true);
+		}
+		return false;
+	}
+
+	public static String connect(String php, String[] keys, String[] values) throws Exception
+	{
+		String charset = "UTF-8";
+		String query = "?";
+		if (keys != null && values != null)
+		{
+			if (keys.length != values.length)
+				throw new IllegalArgumentException("Keys length (" + keys.length + ") != values length (" + values.length + ")");
+			for (int i = 0; i < keys.length; i++)
+				query += String.format(keys[i] + "=%s", URLEncoder.encode(values[i], charset));
+		}
+
+		HttpsURLConnection connection = (HttpsURLConnection) new URL("https://maceswinger.com/utils/" + php + ".php" + query).openConnection();
+		connection.setDoOutput(true);
+		connection.setConnectTimeout(15 * 1000);
+		connection.setReadTimeout(15 * 1000);
+		connection.setRequestProperty("Accept-Charset", charset);
+		connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+		connection.setRequestProperty("User-Agent", "Mace Swinger Launcher/1.0 (" + OSUtils.getCurrentOS().toString() + ")");
+		connection.setRequestMethod("POST");
+		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		String inputLine;
+		final StringBuilder inputLines = new StringBuilder("");
+		while ((inputLine = in.readLine()) != null)
+			inputLines.append(inputLine.trim() + "\n");
+		in.close();
+		connection.disconnect();
+		return inputLines.toString().trim();
 	}
 }

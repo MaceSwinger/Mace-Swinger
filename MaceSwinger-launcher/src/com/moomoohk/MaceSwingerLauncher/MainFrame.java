@@ -60,6 +60,8 @@ public class MainFrame extends JFrame
 
 	private ImagePanel settingsLogo = new ImagePanel(Resources.settingsLogo, false, null);
 
+	public static String sid;
+
 	public static enum View
 	{
 		SPLASH, LOGIN, MENU, SETTINGS, UPDATEAVAILABLE, MISSINGFILES, UPTODATE;
