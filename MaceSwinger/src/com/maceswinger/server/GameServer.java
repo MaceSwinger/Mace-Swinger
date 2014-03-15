@@ -1,3 +1,4 @@
+
 package com.maceswinger.server;
 
 import java.io.BufferedReader;
@@ -65,7 +66,7 @@ public class GameServer
 		if (!modsInitialized) //Either this way or dispose of the mods when the server is closed.
 		{
 			ModuleLoader.debugPasteCoreMod();
-			ModuleLoader.initMods();
+			//ModuleLoader.initMods();
 			modsInitialized = true;
 		}
 
@@ -228,3 +229,4 @@ public class GameServer
 		}
 	}
 }
+

@@ -5,6 +5,10 @@ import org.lwjgl.util.vector.Vector4f;
 import com.maceswinger.client.GameClient;
 import com.maceswinger.gui.components.GuiButtonArray;
 import com.maceswinger.gui.components.GuiString;
+import com.maceswinger.items.Item;
+import com.maceswinger.items.ItemMace;
+import com.maceswinger.mods.Mod;
+import com.maceswinger.mods.ModuleLoader;
 import com.maceswinger.utils.Font;
 
 public class GuiMainMenu extends Gui {
@@ -16,12 +20,12 @@ public class GuiMainMenu extends Gui {
 		super(game, width, height);
 		buttons = new GuiButtonArray(0, this);
 		text = new GuiString(1, this);
-		// text.addString(text.new Text(0, "beefdrippinggames 2014", 75,
-		// Game.HEIGHT - 35));
 		buttons.addButton(buttons.new Button(0, "     start", 80, 300, 300, 50));
-		buttons.addButton(buttons.new Button(1, "   something else", 80, 200,
+		buttons.addButton(buttons.new Button(1, "   show loaded mods", 80, 200,
 				300, 50));
-		buttons.addButton(buttons.new Button(2, "   quit game", 80, 100, 300,
+		buttons.addButton(buttons.new Button(2, "   test maces", 80, 120,
+				300, 50));
+		buttons.addButton(buttons.new Button(3, "   quit game", 80, 100, 50,
 				50));
 	}
 
@@ -55,8 +59,16 @@ public class GuiMainMenu extends Gui {
 			game.closeGui();
 			break;
 		case 1:
+			System.out.println("Loaded Mods: ");
+			for(Mod m: ModuleLoader.mods){
+				System.out.println(m.name+" -\t"+m.desc);
+			}
 			break;
 		case 2:
+			Item mace = ItemMace.createMace();
+			System.out.println(mace.getName());
+			break;
+		case 3:
 			GameClient.exit(0);
 			break;
 		}

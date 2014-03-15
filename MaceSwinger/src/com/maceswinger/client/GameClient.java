@@ -1,3 +1,4 @@
+
 package com.maceswinger.client;
 
 import java.io.BufferedReader;
@@ -26,6 +27,7 @@ import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
 import com.maceswinger.gui.Gui;
 import com.maceswinger.gui.GuiMainMenu;
+import com.maceswinger.mods.ModuleLoader;
 import com.maceswinger.net.KryoReg;
 import com.maceswinger.net.Message;
 import com.maceswinger.net.ServerShell;
@@ -168,8 +170,6 @@ public class GameClient
 
 	private void tick()
 	{
-
-		System.out.println("FPS: " + fps);
 		if (!Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_P))
 			Sound.play(1, 1);
 		if (Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_O))
@@ -221,6 +221,7 @@ public class GameClient
 	{
 		Sound.loadSounds();
 		Textures.loadAll();
+		ModuleLoader.initMods();
 		gui = new GuiMainMenu(this, width, height);
 		//startGame();
 	}
@@ -311,39 +312,39 @@ public class GameClient
 
 	public static void main(String[] args)
 	{
-		try
-		{
-			HashMap<String, String> flags = CommandsManager.parseFlags(args);
-			if ((flags.containsKey("online") && flags.get("online").equals("true") && !flags.containsKey("sid")) || (flags.containsKey("sid") && !flags.containsKey("online")))
-			{
-				System.out.println("Please use the Mace Swinger Launcher to launch the game.");
-				JOptionPane.showMessageDialog(null, "Please use the Mace Swinger Launcher to launch the game.", "", JOptionPane.PLAIN_MESSAGE);
-				return;
-			}
-			if (flags.get("online").equals("true"))
-			{
-				String sessinfo = connect("sessinfo", new String[] { "sid" }, new String[] { flags.get("sid") });
-				Scanner s = new Scanner(sessinfo);
-				s.useDelimiter(":");
-				boolean valid = s.hasNextLine() && s.nextBoolean();
-				if (!valid || valid && s.nextInt() == 0)
-				{
-					System.out.println("Invalid session ID. Please login and launch the game through the launcher.");
-					JOptionPane.showMessageDialog(null, "Invalid session ID. Please login and launch the game through the launcher.", "", JOptionPane.PLAIN_MESSAGE);
-					return;
-				}
-			}
-
-			JOptionPane.showMessageDialog(null, "this is gaem", "", JOptionPane.PLAIN_MESSAGE);
-			System.exit(0);
-
-			fullscreen = flags.get("fullscreen").equals("true");
-			//VSync = flags.get("vsync").equals("true");
-		}
-		catch (Exception e)
-		{
-			return;
-		}
+//		try
+//		{
+//			HashMap<String, String> flags = CommandsManager.parseFlags(args);
+//			if ((flags.containsKey("online") && flags.get("online").equals("true") && !flags.containsKey("sid")) || (flags.containsKey("sid") && !flags.containsKey("online")))
+//			{
+//				System.out.println("Please use the Mace Swinger Launcher to launch the game.");
+//				JOptionPane.showMessageDialog(null, "Please use the Mace Swinger Launcher to launch the game.", "", JOptionPane.PLAIN_MESSAGE);
+//				return;
+//			}
+//			if (flags.get("online").equals("true"))
+//			{
+//				String sessinfo = connect("sessinfo", new String[] { "sid" }, new String[] { flags.get("sid") });
+//				Scanner s = new Scanner(sessinfo);
+//				s.useDelimiter(":");
+//				boolean valid = s.hasNextLine() && s.nextBoolean();
+//				if (!valid || valid && s.nextInt() == 0)
+//				{
+//					System.out.println("Invalid session ID. Please login and launch the game through the launcher.");
+//					JOptionPane.showMessageDialog(null, "Invalid session ID. Please login and launch the game through the launcher.", "", JOptionPane.PLAIN_MESSAGE);
+//					return;
+//				}
+//			}
+//
+//			JOptionPane.showMessageDialog(null, "this is gaem", "", JOptionPane.PLAIN_MESSAGE);
+//			//System.exit(0);
+//
+//			fullscreen = flags.get("fullscreen").equals("true");
+//			//VSync = flags.get("vsync").equals("true");
+//		}
+//		catch (Exception e)
+//		{
+//			return;
+//		}
 		try
 		{
 			System.setProperty("org.lwjgl.librarypath", OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "lwjgl" + File.separator + OSUtils.getCurrentOS().toString().toLowerCase());

@@ -1,3 +1,4 @@
+
 package com.maceswinger.utils;
 
 import static org.lwjgl.openal.AL10.AL_BUFFER;
@@ -59,3 +60,4 @@ public class Sound {
 	}
 
 }
+

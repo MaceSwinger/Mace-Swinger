@@ -1,3 +1,4 @@
+
 package com.maceswinger.utils;
 
 import static org.lwjgl.opengl.GL11.GL_NEAREST;

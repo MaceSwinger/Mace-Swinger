@@ -14,7 +14,7 @@ import com.moomoohk.Mootilities.OSUtils.OSUtils;
 public class ModuleLoader
 {
 	private static URLClassLoader loader;
-
+	public static ArrayList<Mod> mods = new ArrayList<Mod>();
 	public static void debugPasteCoreMod()
 	{
 		File coredir = new File(System.getProperty("user.dir") + "/../Core/bin/core");
@@ -92,6 +92,7 @@ public class ModuleLoader
 					Mod info = (Mod) o;
 					info.info();
 					info.init();
+					mods.add(info);
 				}
 			}
 		}

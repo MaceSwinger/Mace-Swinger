@@ -1,3 +1,4 @@
+
 package com.maceswinger.utils;
 
 public class Easing {
@@ -176,3 +177,4 @@ public class Easing {
 		return c / 2 * (-(float) Math.pow(2, -10 * --t) + 2) + b;
 	}
 }
+

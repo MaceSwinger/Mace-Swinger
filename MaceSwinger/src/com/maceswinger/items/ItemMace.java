@@ -8,6 +8,8 @@ public class ItemMace extends Item {
 	Condition CONDITION;
 	Elemental ELEMENTAL;
 
+	//mace on derriere
+	
 	public ItemMace(MaceHandle handle, MaceShaft shaft, MaceHead head,
 			int condition, int elem) {
 		this.handle = handle;
@@ -17,18 +19,21 @@ public class ItemMace extends Item {
 		this.ELEMENTAL = Elemental.getElemental(elem);
 	}
 
-	public int getDamage(){
-		return head.MATERIAL.getPower()+this.CONDITION.getPower();
+	public int getDamage() {
+		return head.MATERIAL.getPower() + this.CONDITION.getPower();
 	}
+
 	@Override
 	public String getName() {
-		if(ELEMENTAL != null){
-		return this.CONDITION.getName() + " " + this.head.MATERIAL.getName()
-				+ " Mace of " + this.ELEMENTAL.getName();
-		}else{
-			return this.CONDITION.getName() + " " + this.head.MATERIAL.getName()
-					+ " Mace";
-		}
 
+		return this.CONDITION.getName() + " " + this.head.MATERIAL.getName()
+				+ " Mace " + this.ELEMENTAL.getName();
+
+	}
+	public static Item createMace(){
+		MaceHead a = new MaceHead(Material.getRandomMaterial(0));
+		MaceShaft b = new MaceShaft(Material.getRandomMaterial(0));
+		MaceHandle c = new MaceHandle(Material.getRandomMaterial(0));
+		return new ItemMace(c,b,a,Condition.getRandomCondition(0),Elemental.getRandomElemental(0));
 	}
 }

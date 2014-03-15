@@ -1,3 +1,4 @@
+
 package com.maceswinger.utils;
 
 public enum EnumTextures {
@@ -14,3 +15,4 @@ public enum EnumTextures {
 		return this.id;
 	}
 }
+

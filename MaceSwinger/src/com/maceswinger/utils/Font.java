@@ -1,3 +1,4 @@
+
 package com.maceswinger.utils;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
@@ -313,7 +314,6 @@ public class Font {
 	        glTexCoord2f(textureX,textureY);
 	        glVertex2f(x, charWidth+y);
 	        glEnd();
-			glDisable(GL_TEXTURE_2D);
 			glColor4f(1,1,1,1);
 			x+=getCharWidth2(msg.charAt(i))*scale;
 		}
@@ -358,3 +358,10 @@ public class Font {
 
 	
 	}
+
+
+
+
+
+
+
