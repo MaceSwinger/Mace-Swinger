@@ -27,8 +27,11 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
+import com.maceswinger.Vector2;
+import com.maceswinger.client.render.SpriteRenderer;
 import com.maceswinger.gui.Gui;
 import com.maceswinger.gui.GuiMainMenu;
+import com.maceswinger.map.MapLoader;
 import com.maceswinger.mods.ModuleLoader;
 import com.maceswinger.net.KryoReg;
 import com.maceswinger.net.Message;
@@ -112,7 +115,7 @@ public class GameClient
 
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		init();
-
+		
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D / 60D;
 
@@ -173,7 +176,6 @@ public class GameClient
 
 	private void tick()
 	{
-		System.out.println("fps:"+fps);
 		if (!Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_P))
 			Sound.play(1, 1);
 		if (Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_O))
@@ -231,6 +233,7 @@ public class GameClient
 
 	private void init()
 	{
+		SpriteRenderer.mainCamera = new Vector2();
 		System.out.println("Loading!");
 		long startTime = System.currentTimeMillis();
 		Sound.loadSounds();
@@ -269,7 +272,6 @@ public class GameClient
 
 	public void startGame()
 	{
-
 		new Thread(new Runnable()
 		{
 			@Override

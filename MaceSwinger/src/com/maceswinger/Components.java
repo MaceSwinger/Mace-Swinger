@@ -14,14 +14,13 @@ public class Components
 	public static Component<Color> color = Ents.newComponent("color", new Color());
 	public static Component<Sprite> sprite = Ents.newComponent("sprite", new Sprite());
 	public static Component<Animation> animation = Ents.newComponent("animation", new Animation());
-	public static Component<Item> heldItem = Ents.newComponent("heldItem");
+	//public static Component<Item> heldItem = Ents.newComponent("heldItem", new Item());
 	{
 		Register.components.add(position);
 		Register.components.add(direction);
 		Register.components.add(color);
 		Register.components.add(sprite);
 		Register.components.add(animation);
-		Register.components.add(heldItem);
-		
+		//Register.components.add(heldItem);
 	}
 }
