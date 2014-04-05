@@ -6,14 +6,12 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex2f;
-import static org.lwjgl.opengl.GL11.glRotatef;
 
 import java.util.Random;
 
@@ -54,9 +52,9 @@ public class Font {
 				charIndex = 10;// make it a
 			glColor4f(color.x, color.y, color.z, color.w);
 			renderChar(charIndex, x, y, scale);
-			glColor4f(1, 1, 1, 1);
 			x += charWidth2 / 13;
 		}
+		glColor4f(1, 1, 1, 1);
 	}
 
 	private static void renderChar(int id, float x, float y, float scale) {
@@ -301,9 +299,8 @@ public class Font {
 			if (charIndex < 0)
 				charIndex = 29;
 	    	getTexture(charIndex);
-	    	glEnable(GL_TEXTURE_2D);
 	    	glColor4f(color.x,color.y, color.z, color.w);
-	    	glBindTexture(GL_TEXTURE_2D,Textures.textureID[0]);
+	    	glBindTexture(GL_TEXTURE_2D,Textures.textureID[EnumTextures.FONT.getID()]);
 			glBegin(GL_QUADS);
 			glTexCoord2f(textureX,textureY+textureWidth);
 	        glVertex2f(x, y);

@@ -43,35 +43,36 @@ public abstract class Gui {
 		glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, Textures.textureID[tex]);
 		glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
-        glVertex2f(x, y);
-        glTexCoord2f(1, 0);
-        glVertex2f(x+width, y);
-        glTexCoord2f(1, 1);
-        glVertex2f(x+width, y+height);
         glTexCoord2f(0, 1);
+        glVertex2f(x, y);
+        glTexCoord2f(1, 1);
+        glVertex2f(x+width, y);
+        glTexCoord2f(1, 0);
+        glVertex2f(x+width, y+height);
+        glTexCoord2f(0, 0);
 		glVertex2f(x, y+height);
         glEnd();
         glPopMatrix();
-        glBindTexture(GL_TEXTURE_2D, 0);
+       
+	}
+	protected void fillScreen(float r, float g, float b, float a){
+		glColor4f(r,g,b,a);
+		glBegin(GL_QUADS);
+        glVertex2f(0,0);
+        glVertex2f(GameClient.width, 0);
+        glVertex2f(GameClient.width,GameClient.height);
+		glVertex2f(0, GameClient.width);
+        glEnd();
+        glPopMatrix();
+        glColor4f(1,1,1,1);
 	}
 	public void render(){
-		if(this.tick<20){
-		glPushMatrix();
-		glBegin(GL_QUADS);
-		glColor4f(0,0,0,this.alpha);
-		glVertex2f(0,0);
-		glVertex2f(width,0);
-		glVertex2f(width,height);
-		glVertex2f(0,height);
-		glEnd();
-		glPopMatrix();
-		}
+		
 	}
 
 	public void tick(int ticks){
 		if(this.tick<20){
-			this.alpha-=0.05;
+			//this.alpha-=0.05;
 	
 		}
 	}

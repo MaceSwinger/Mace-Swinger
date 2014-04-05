@@ -28,7 +28,7 @@ import de.matthiasmann.twl.utils.PNGDecoder.Format;
 public class TextureBinder {
 
 	
-public TextureBinder(String URL, int texture) {
+public static void bindTexture(String URL, int texture) {
 		
         {
             InputStream in = null;

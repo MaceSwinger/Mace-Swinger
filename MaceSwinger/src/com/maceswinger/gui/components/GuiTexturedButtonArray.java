@@ -15,10 +15,10 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import com.maceswinger.gui.Gui;
+import com.maceswinger.utils.CustomMouse;
 import com.maceswinger.utils.Textures;
 
 public class GuiTexturedButtonArray extends GuiComponent{
@@ -46,28 +46,29 @@ public class GuiTexturedButtonArray extends GuiComponent{
 	
 	public class TexturedButton {
 		public int id;
-		public int text;
+		public int text, ttext;
 		public boolean isAvailable = true;
 		private float x,y;
 		private float width,height;
-		public TexturedButton(int id, int text, float x, float y, float width, float height) {
+		public TexturedButton(int id, int text,int ttext, float x, float y, float width, float height) {
 			this.id = id;
 			this.text = text;
+			this.ttext=ttext;
 			this.x=x;
 			this.y=y;
 			this.width = width;
 			this.height=height;
 		}
-		public boolean isMouseinBounds(){
+		public boolean isCustomMouseinBounds(){
 			
-			if(Mouse.getX()<this.x+width&&Mouse.getX()>this.x&&Mouse.getY()<this.y+height&&Mouse.getY()>this.y){
+			if(CustomMouse.getX()<this.x+width&&CustomMouse.getX()>this.x&&CustomMouse.getY()<this.y+height&&CustomMouse.getY()>this.y){
 				return true;
 			}
 			return false;
 			
 		}
 		public void tick(){
-			if(Mouse.isButtonDown(0)&&isMouseinBounds())parent.guiActionPerformed(id, 0);
+			if(CustomMouse.isButtonDown(0)&&isCustomMouseinBounds())parent.guiActionPerformed(id, 0);
 		}
 	}
 		
@@ -77,17 +78,30 @@ public class GuiTexturedButtonArray extends GuiComponent{
 	public void render() {
 		for (TexturedButton o : options) {
 			glPushMatrix();
-			if(o.isMouseinBounds())GL11.glColor4f(1,1,1,1);
-			if(!o.isMouseinBounds())GL11.glColor4f(1,1,1,0.5f);
+			if(o.isCustomMouseinBounds())GL11.glColor4f(1,1,1,1);
+			if(!o.isCustomMouseinBounds())GL11.glColor4f(1,1,1,0.5f);
 			glBindTexture(GL_TEXTURE_2D,Textures.textureID[o.text]);
 			glBegin(GL_QUADS);
-			glTexCoord2f(0,0);
+			glTexCoord2f(0,1);
 			glVertex2f(o.x, o.y);
-			glTexCoord2f(1,0);
+			glTexCoord2f(1,1);
 		    glVertex2f(o.x+o.width, o.y);
-		    glTexCoord2f(1,1);
+		    glTexCoord2f(1,0);
 		    glVertex2f(o.x+o.width, o.y+o.height);
-		    glTexCoord2f(0,1);
+		    glTexCoord2f(0,0);
+		    glVertex2f(o.x, o.y+o.height);
+		    GL11.glColor4f(1,1,1,1);
+	        glEnd();
+	        glBindTexture(GL_TEXTURE_2D,Textures.textureID[o.ttext]);
+	        if(o.isCustomMouseinBounds())GL11.glTranslatef(0,6,0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0,1);
+			glVertex2f(o.x, o.y);
+			glTexCoord2f(1,1);
+		    glVertex2f(o.x+o.width, o.y);
+		    glTexCoord2f(1,0);
+		    glVertex2f(o.x+o.width, o.y+o.height);
+		    glTexCoord2f(0,0);
 		    glVertex2f(o.x, o.y+o.height);
 		    GL11.glColor4f(1,1,1,1);
 	        glEnd();

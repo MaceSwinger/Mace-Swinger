@@ -1,6 +1,7 @@
 
 package com.maceswinger.client;
 
+import java.awt.Canvas;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.lwjgl.LWJGLException;
@@ -32,6 +34,7 @@ import com.maceswinger.net.KryoReg;
 import com.maceswinger.net.Message;
 import com.maceswinger.net.ServerShell;
 import com.maceswinger.server.GameServer;
+import com.maceswinger.utils.CustomDisplay;
 import com.maceswinger.utils.Sound;
 import com.maceswinger.utils.Textures;
 import com.moomoohk.MooCommands.CommandsManager;
@@ -41,15 +44,21 @@ import com.moomoohk.Mootilities.OSUtils.OSUtils;
  * 
  * @since Feb 4, 2014
  */
-public class GameClient
+public class GameClient 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public EntityList entities = new EntityList();
 	private int fps;
 	private static boolean fullscreen;
 	private static boolean VSync;
-	public static final int width = 800, height = 600;
+	public static final float width = 1920/2, height = 1080/2;
 	private Gui HUD;
 	private Gui gui;
+	public static  JFrame frame;
+	public  static Canvas canvas;
 	final GameServer internalServer = new GameServer(new ServerShell()
 	{
 
@@ -89,22 +98,15 @@ public class GameClient
 
 	public void run() throws LWJGLException
 	{
-		if (!fullscreen)
-		{
-			Display.setDisplayMode(new DisplayMode(width, height));
-		}
-		else
-		{
-			Display.setFullscreen(true);
-		}
-		Display.setTitle("Mace Swinger");
-		Display.create();
+		//fullscreen=true;
+		canvas = new Canvas();
+		frame = new JFrame();
+		new CustomDisplay().create(fullscreen);
 		AL.create();
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		GL11.glOrtho(0, width, 0, height, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_BLEND);
 
@@ -120,6 +122,7 @@ public class GameClient
 		double delta = 0;
 		while (!Display.isCloseRequested())
 		{
+			
 			long now = System.nanoTime();
 			delta += (now - lastTime) / nsPerTick;
 			lastTime = now;
@@ -170,6 +173,7 @@ public class GameClient
 
 	private void tick()
 	{
+		System.out.println("fps:"+fps);
 		if (!Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_P))
 			Sound.play(1, 1);
 		if (Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_O))
@@ -212,17 +216,31 @@ public class GameClient
 
 	private void update()
 	{
+		if(!fullscreen)
+			resize(canvas.getWidth(),canvas.getHeight());
 		if (VSync)
 			Display.sync(60);
 		Display.update();
 	}
 
+	private void resize(int i, int j) {
+		GL11.glViewport(0, 0, i, j);
+		CustomDisplay.setyScale(GameClient.height / Display.getHeight());
+		CustomDisplay.setxScale(GameClient.width / Display.getWidth());
+	}
+
 	private void init()
 	{
+		System.out.println("Loading!");
+		long startTime = System.currentTimeMillis();
 		Sound.loadSounds();
 		Textures.loadAll();
 		ModuleLoader.initMods();
-		gui = new GuiMainMenu(this, width, height);
+		long endTime = System.currentTimeMillis();
+		long time = endTime - startTime;
+		System.out.println("Loaded in: " + time + " ms");
+		
+		gui = new GuiMainMenu(this,(int) width, (int)height);
 		//startGame();
 	}
 
@@ -238,10 +256,13 @@ public class GameClient
 		{
 			case 0:
 				System.out.println("System exiting normally");
-				// destroy resources
+				long startTime = System.currentTimeMillis();
 				Textures.deleteAll();
 				Sound.deleteSounds();
-
+				long endTime = System.currentTimeMillis();
+				long time = endTime - startTime;
+				System.out.println("Exited in: " + time + " ms");
+			
 				System.exit(0);
 		}
 	}

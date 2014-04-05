@@ -1,42 +1,45 @@
 package com.maceswinger.gui;
 
-import org.lwjgl.util.vector.Vector4f;
+import org.lwjgl.opengl.GL11;
 
 import com.maceswinger.client.GameClient;
-import com.maceswinger.gui.components.GuiButtonArray;
-import com.maceswinger.gui.components.GuiString;
-import com.maceswinger.items.Item;
-import com.maceswinger.items.ItemMace;
+import com.maceswinger.gui.components.GuiTexturedButtonArray;
 import com.maceswinger.mods.Mod;
 import com.maceswinger.mods.ModuleLoader;
-import com.maceswinger.utils.Font;
+import com.maceswinger.utils.Easing;
+import com.maceswinger.utils.EnumTextures;
 
 public class GuiMainMenu extends Gui {
 
-	private GuiButtonArray buttons;
-	private GuiString text;
+	private GuiTexturedButtonArray buttons;
+	
 
 	public GuiMainMenu(GameClient game, int width, int height) {
 		super(game, width, height);
-		buttons = new GuiButtonArray(0, this);
-		text = new GuiString(1, this);
-		buttons.addButton(buttons.new Button(0, "     start", 80, 300, 300, 50));
-		buttons.addButton(buttons.new Button(1, "   show loaded mods", 80, 200,
-				300, 50));
-		buttons.addButton(buttons.new Button(2, "   test maces", 80, 120,
-				300, 50));
-		buttons.addButton(buttons.new Button(3, "   quit game", 80, 100, 50,
-				50));
+		buttons = new GuiTexturedButtonArray(0, this);
+		buttons.addButton(buttons.new TexturedButton(0, EnumTextures.Play.getID(),EnumTextures.PlayT.getID(), 500, 360, 400,80));
+		buttons.addButton(buttons.new TexturedButton(1, EnumTextures.Settings.getID(), EnumTextures.SettingsT.getID(), 500, 280,
+				400, 80));
+		buttons.addButton(buttons.new TexturedButton(2, EnumTextures.Mods.getID(), EnumTextures.ModsT.getID(), 500, 190,
+				400, 80));
+		buttons.addButton(buttons.new TexturedButton(3, EnumTextures.Quit.getID(), EnumTextures.QuitT.getID(), 500, 110, 400,
+				80));
 	}
-
+	
+	float a=1.00f;
 	@Override
 	public void render() {
-		text.render();
+		GL11.glColor4f(1,1,1,1);
+		a= Easing.elasticIn(tick, 0.00f, a, 2000);
+		this.renderImage(EnumTextures.BG_Sky.getID(), GameClient.width, GameClient.height, 0, 0);
+		this.fillScreen(0,0,1,a);
+		this.renderImage(EnumTextures.BG_Ground.getID(), GameClient.width, GameClient.height, 0, 0);
 		buttons.render();
-		// this.renderImage(1, 100, 100, 200, 200);
-		Font.drawString("Main", 100, 460, 1f, new Vector4f(0, 0, 1, 1));
-		Font.drawString("Menu", 100, 380, 1f, new Vector4f(0, 0, 1, 1));
-		Font.draw8bitString("wooah", 400, 360, 6f, new Vector4f(0, 0, 1, 1));
+		this.renderImage(EnumTextures.LeftHand.getID(), GameClient.width, GameClient.height, 0, 0);
+		this.renderImage(EnumTextures.Legs.getID(), GameClient.width, GameClient.height, 0, 0);
+		this.renderImage(EnumTextures.Torso.getID(), GameClient.width, GameClient.height, 0, 0);//make it a button?
+		this.renderImage(EnumTextures.Logo.getID(), GameClient.width, GameClient.height, 0, 0);
+		this.renderImage(EnumTextures.Vignette.getID(), GameClient.width, GameClient.height, 0, 0);
 		super.render();
 	}
 
@@ -47,7 +50,7 @@ public class GuiMainMenu extends Gui {
 		if (tick < 20)
 			return;
 		buttons.tick(ticks);
-		text.tick(ticks);
+
 
 	}
 
@@ -58,16 +61,13 @@ public class GuiMainMenu extends Gui {
 			game.startGame();
 			game.closeGui();
 			break;
-		case 1:
+		case 2:
 			System.out.println("Loaded Mods: ");
 			for(Mod m: ModuleLoader.mods){
 				System.out.println(m.name+" -\t"+m.desc);
 			}
 			break;
-		case 2:
-			Item mace = ItemMace.createMace();
-			System.out.println(mace.getName());
-			break;
+		
 		case 3:
 			GameClient.exit(0);
 			break;

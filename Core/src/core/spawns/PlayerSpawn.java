@@ -10,6 +10,7 @@ import com.maceswinger.Rectangle;
 import com.maceswinger.Vector2;
 import com.maceswinger.client.render.AnimationRenderer;
 import com.maceswinger.client.render.SpriteRenderer;
+import com.maceswinger.items.ItemMace;
 import com.maceswinger.map.MapObject;
 import com.maceswinger.server.GameServer;
 
@@ -48,15 +49,21 @@ public class PlayerSpawn implements MapObject
 
 		player.add(Components.animation);
 		player.add(Components.position);
+		player.add(Components.direction);
+		player.add(Components.heldItem);
 
 		player.add(Core.Components.collider);
 		player.add(Core.Components.velocity);
 		player.add(Core.Components.inventory);
 		player.add(Core.Components.jumpCooldown);
-
+		player.add(Core.Components.attackCooldown);
+		
 		player.set(Components.animation, new Animation(new Animation.Frame("player_walk_1", 5), new Animation.Frame("player_walk_2", 5), new Animation.Frame("player_walk_3", 5), new Animation.Frame("player_walk_4", 5)));
 		player.set(Components.position, new Vector2(x * 32, y * 32));
+		player.set(Components.direction, new IntVal(0));
+		player.set(Components.heldItem, ItemMace.STARTERMACE);
 		player.set(Core.Components.jumpCooldown, new IntVal(0));
+		player.set(Core.Components.attackCooldown, new IntVal(0));
 		player.set(Core.Components.collider, new Rectangle(x * 32 + 3, y * 32 + 1, 17, 48));
 
 		player.setRenderer(new AnimationRenderer("mob"));

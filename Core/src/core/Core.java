@@ -44,6 +44,7 @@ public class Core extends Mod
 
 		public static Component<Inventory> inventory;
 		public static Component<IntVal> jumpCooldown;
+		public static Component<IntVal> attackCooldown;
 	}
 
 	@Override
@@ -66,6 +67,7 @@ public class Core extends Mod
 		Components.collider = Ents.newComponent("rectangle", new Rectangle());
 		Components.inventory = Ents.newComponent("inventory", new Inventory());
 		Components.jumpCooldown = Ents.newComponent("jumpCooldown", new IntVal());
+		Components.attackCooldown = Ents.newComponent("attackCooldown", new IntVal());
 
 		MapLoader.addMapObject("PlayerSpawn", new PlayerSpawn());
 		MapLoader.addMapObject("GoblinSpawn", new GoblinSpawn());
@@ -77,6 +79,7 @@ public class Core extends Mod
 		Register.components.add(Components.collider);
 		Register.components.add(Components.inventory);
 		Register.components.add(Components.jumpCooldown);
+		Register.components.add(Components.attackCooldown);
 
 		Register.controllers.add(Controllers.goblinAi);
 		Register.controllers.add(Controllers.velocity);
