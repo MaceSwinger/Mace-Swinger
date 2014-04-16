@@ -14,7 +14,7 @@ public class Condition {
 	public static final Condition FINE = new Condition(1,"Fine",40);
 	public static final Condition EXCELLENT = new Condition(2,"Excellent",20);
 	
-	private static int SIZE;
+	public static int SIZE;
     private byte id;
     private int power;
     private String name;

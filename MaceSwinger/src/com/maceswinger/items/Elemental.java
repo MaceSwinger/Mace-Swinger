@@ -10,7 +10,7 @@ public class Elemental {
 	public static final Elemental POISON = new Elemental("of Poison", 20);
 	public static final Elemental FROST = new Elemental("of Frost", 20);
 
-	private static int SIZE;
+	public static int SIZE;
 	private byte id;
 	private String name;
 	private int rareness;

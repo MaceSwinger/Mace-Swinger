@@ -6,6 +6,7 @@ import org.magnos.entity.vals.IntVal;
 
 import com.maceswinger.Animation;
 import com.maceswinger.Components;
+import com.maceswinger.ItemVal;
 import com.maceswinger.Rectangle;
 import com.maceswinger.Vector2;
 import com.maceswinger.client.render.AnimationRenderer;
@@ -61,7 +62,7 @@ public class PlayerSpawn implements MapObject
 		player.set(Components.animation, new Animation(new Animation.Frame("player_walk_1", 5), new Animation.Frame("player_walk_2", 5), new Animation.Frame("player_walk_3", 5), new Animation.Frame("player_walk_4", 5)));
 		player.set(Components.position, new Vector2(x * 32, y * 32));
 		player.set(Components.direction, new IntVal(0));
-		player.set(Components.heldItem, ItemMace.STARTERMACE);
+		player.set(Components.heldItem, new ItemVal(ItemMace.STARTERMACE));
 		player.set(Core.Components.jumpCooldown, new IntVal(0));
 		player.set(Core.Components.attackCooldown, new IntVal(0));
 		player.set(Core.Components.collider, new Rectangle(x * 32 + 3, y * 32 + 1, 17, 48));

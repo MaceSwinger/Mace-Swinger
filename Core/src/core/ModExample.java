@@ -12,8 +12,8 @@ public class ModExample extends Mod {
 
 
 	public void init() {
-		registerMaterial(STEEL);
-		registerCondition(MIGHTYFINE);
+		//registerMaterial(STEEL);
+		//registerCondition(MIGHTYFINE);
 	}
 
 	@Override

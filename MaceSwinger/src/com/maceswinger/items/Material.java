@@ -18,7 +18,7 @@ public class Material {
 	public static final Material PLATINUM = new Material(31,"Platinum",10);
 	public static final Material DIAMOND = new Material(35,"Diamond",4);
 	
-	private static int SIZE;
+	public static int SIZE;
     private byte id;
     private int power;
     private String name;

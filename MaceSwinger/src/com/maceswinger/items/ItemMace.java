@@ -11,7 +11,7 @@ public class ItemMace extends Item {
 	Elemental ELEMENTAL;
 
 	// mace on derriere
-	public static final ItemMace[] legendaries = new ItemMace[256];
+	public static final ItemMace[] legendaries = new ItemMace[2];
 	public static final ItemMace MAISONDERRIERE = new ItemMace(0,"Mace on Derriere", 100);
 	public static final ItemMace STARTERMACE = new ItemMace(1,"Crumy old stick", 1);
 
@@ -52,6 +52,12 @@ public class ItemMace extends Item {
 	}
 	public String getName(){
 		return name;
+	}
+	public static String getTotalUniqueMaces(){
+		
+		int r = (int) Math.pow(3, Material.SIZE)*Condition.SIZE*Elemental.SIZE*4+legendaries.length;
+		return r+" maces in total!";
+		
 	}
 	public static Item createMace() {
 		if(new Random().nextInt(100000)==0){//one in one millon to get legendary mace

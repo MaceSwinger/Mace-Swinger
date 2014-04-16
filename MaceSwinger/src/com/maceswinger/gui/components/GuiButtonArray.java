@@ -11,12 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector4f;
 
 import com.maceswinger.gui.Gui;
-import com.maceswinger.utils.Easing;
+import com.maceswinger.utils.CustomMouse;
 import com.maceswinger.utils.Font;
 
 public class GuiButtonArray extends GuiComponent {
@@ -38,43 +37,41 @@ public class GuiButtonArray extends GuiComponent {
 	}
 
 	public class Button {
-		private float ticks;
 		public int id;
 		public String text;
 		public boolean isAvailable = true;
 		private float x, y;
-		private float yy;
+		private float width, height;
+		private boolean isActive = true;
 
-		private float easDur;
-		private float width = 300, height = 50;
-
-		public Button(int id, String text, float xx, float yy, float width, float height) {
+		public Button(int id, String text, float xx, float yy, float width,
+				float height) {
 			this.id = id;
 			this.text = text;
 			this.x = xx;
-			this.y = 800;
-			this.yy = yy;
+			this.y = yy;
 			this.width = width;
 			this.height = height;
-			this.easDur = 200.0f + (rand.nextFloat() * 100);
 		}
 
 		public boolean isMouseinBounds() {
 
-			if (Mouse.getX() < this.x + width && Mouse.getX() > this.x
-					&& Mouse.getY() < this.y + height && Mouse.getY() > this.y) {
+			if (CustomMouse.getX() < this.x + width
+					&& CustomMouse.getX() > this.x
+					&& CustomMouse.getY() < this.y + height
+					&& CustomMouse.getY() > this.y) {
 				return true;
 			}
 			return false;
 
 		}
 
-		public void tick() {
-			ticks++;
-
-			if (Mouse.isButtonDown(0) && isMouseinBounds())
+		public void tick(int ticks) {
+			if (isActive && CustomMouse.isButtonDown(0) && isMouseinBounds()) {
 				parent.guiActionPerformed(id, 0);
-			y = Easing.elasticOut(ticks, 0, yy, easDur + 100);
+			} else if (!isMouseinBounds()) {
+				isActive = true;
+			}
 
 		}
 
@@ -99,7 +96,8 @@ public class GuiButtonArray extends GuiComponent {
 			glVertex2f(o.x, o.y + o.height);
 			GL11.glColor4f(1, 1, 1, 1);
 			glEnd();
-			Font.drawString(o.text, o.x + 10, o.y + 10, 0.2f, new Vector4f(0, 0, 1, 1));
+			Font.drawString(o.text, o.x + 10, o.y + 10, 0.2f, new Vector4f(0,
+					0, 1, 1));
 			glPopMatrix();
 		}
 
@@ -108,10 +106,18 @@ public class GuiButtonArray extends GuiComponent {
 	@Override
 	public void tick(int ticks) {
 		for (Button b : options) {
-			b.tick();
+			b.tick(ticks);
 		}
 
 	}
 
-}
+	public void deactivate(int id) {
+		for (Button o : options) {
+			if (o.id == id) {
+				o.isActive = false;
+				return;
+			}
+		}
+	}
 
+}
