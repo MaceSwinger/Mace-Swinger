@@ -93,7 +93,7 @@ public class GameServer
 
 				if (onPlayerConnect != null)
 					onPlayerConnect.run();
-
+				System.out.println(entities.size());
 				for (int i = 0; i < entities.size(); i++)
 				{
 					Entity e = entities.at(i);

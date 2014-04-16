@@ -255,6 +255,7 @@ public class LauncherUtils
 		else
 		{
 			new ResponseDialog(MainFrame.mainFrame, "Error:", "Your session has timed out (or is otherwise invalid)!\nPlease log in again.").setVisible(true);
+			MainFrame.mainFrame.loginPanel.reset(false);
 			MainFrame.mainFrame.animateBetween(View.MENU, View.LOGIN, null);
 		}
 	}
@@ -292,10 +293,14 @@ public class LauncherUtils
 			if (keys.length != values.length)
 				throw new IllegalArgumentException("Keys length (" + keys.length + ") != values length (" + values.length + ")");
 			for (int i = 0; i < keys.length; i++)
-				query += String.format(keys[i] + "=%s", URLEncoder.encode(values[i], charset));
+				query += String.format(keys[i] + "=%s&", URLEncoder.encode(values[i], charset));
 		}
 
-		HttpsURLConnection connection = (HttpsURLConnection) new URL("https://maceswinger.com/utils/" + php + ".php" + query).openConnection();
+		String url = "https://maceswinger.com/utils/" + php + ".php" + query;
+		url = url.substring(0, url.length() - 1);
+		System.out.println("Connecting to " + url);
+
+		HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
 		connection.setDoOutput(true);
 		connection.setConnectTimeout(15 * 1000);
 		connection.setReadTimeout(15 * 1000);
@@ -310,6 +315,7 @@ public class LauncherUtils
 			inputLines.append(inputLine.trim() + "\n");
 		in.close();
 		connection.disconnect();
+		System.out.println("Response[" + inputLines.toString().trim() + "]");
 		return inputLines.toString().trim();
 	}
 }
