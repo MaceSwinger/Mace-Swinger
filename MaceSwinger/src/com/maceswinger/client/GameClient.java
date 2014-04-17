@@ -1,4 +1,3 @@
-
 package com.maceswinger.client;
 
 import java.awt.Canvas;
@@ -8,8 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JFrame;
@@ -19,7 +16,6 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.magnos.entity.EntityList;
 
@@ -27,8 +23,11 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.FrameworkMessage;
 import com.esotericsoftware.kryonet.Listener;
+import com.maceswinger.Vector2;
+import com.maceswinger.client.render.SpriteRenderer;
 import com.maceswinger.gui.Gui;
 import com.maceswinger.gui.GuiMainMenu;
+import com.maceswinger.map.MapLoader;
 import com.maceswinger.mods.ModuleLoader;
 import com.maceswinger.net.KryoReg;
 import com.maceswinger.net.Message;
@@ -37,14 +36,13 @@ import com.maceswinger.server.GameServer;
 import com.maceswinger.utils.CustomDisplay;
 import com.maceswinger.utils.Sound;
 import com.maceswinger.utils.Textures;
-import com.moomoohk.MooCommands.CommandsManager;
 import com.moomoohk.Mootilities.OSUtils.OSUtils;
 
 /**
  * 
  * @since Feb 4, 2014
  */
-public class GameClient 
+public class GameClient
 {
 	/**
 	 * 
@@ -54,11 +52,11 @@ public class GameClient
 	private int fps;
 	private static boolean fullscreen;
 	private static boolean VSync;
-	public static final float width = 1920/2, height = 1080/2;
+	public static final float width = 1920 / 2, height = 1080 / 2;
 	private Gui HUD;
 	private Gui gui;
-	public static  JFrame frame;
-	public  static Canvas canvas;
+	public static JFrame frame;
+	public static Canvas canvas;
 	final GameServer internalServer = new GameServer(new ServerShell()
 	{
 
@@ -122,7 +120,7 @@ public class GameClient
 		double delta = 0;
 		while (!Display.isCloseRequested())
 		{
-			
+
 			long now = System.nanoTime();
 			delta += (now - lastTime) / nsPerTick;
 			lastTime = now;
@@ -173,7 +171,7 @@ public class GameClient
 
 	private void tick()
 	{
-		System.out.println("fps:"+fps);
+		System.out.println("fps:" + fps);
 		if (!Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_P))
 			Sound.play(1, 1);
 		if (Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_O))
@@ -216,14 +214,15 @@ public class GameClient
 
 	private void update()
 	{
-		if(!fullscreen)
-			resize(canvas.getWidth(),canvas.getHeight());
+		if (!fullscreen)
+			resize(canvas.getWidth(), canvas.getHeight());
 		if (VSync)
 			Display.sync(60);
 		Display.update();
 	}
 
-	private void resize(int i, int j) {
+	private void resize(int i, int j)
+	{
 		GL11.glViewport(0, 0, i, j);
 		CustomDisplay.setyScale(GameClient.height / Display.getHeight());
 		CustomDisplay.setxScale(GameClient.width / Display.getWidth());
@@ -239,8 +238,8 @@ public class GameClient
 		long endTime = System.currentTimeMillis();
 		long time = endTime - startTime;
 		System.out.println("Loaded in: " + time + " ms");
-		
-		gui = new GuiMainMenu(this,(int) width, (int)height);
+
+		gui = new GuiMainMenu(this, (int) width, (int) height);
 		//startGame();
 	}
 
@@ -262,14 +261,15 @@ public class GameClient
 				long endTime = System.currentTimeMillis();
 				long time = endTime - startTime;
 				System.out.println("Exited in: " + time + " ms");
-			
+
 				System.exit(0);
 		}
 	}
 
 	public void startGame()
 	{
-
+		SpriteRenderer.mainCamera = new Vector2(0, 0);
+		MapLoader.loadMap(entities, "map/test.map");
 		new Thread(new Runnable()
 		{
 			@Override
@@ -333,39 +333,39 @@ public class GameClient
 
 	public static void main(String[] args)
 	{
-//		try
-//		{
-//			HashMap<String, String> flags = CommandsManager.parseFlags(args);
-//			if ((flags.containsKey("online") && flags.get("online").equals("true") && !flags.containsKey("sid")) || (flags.containsKey("sid") && !flags.containsKey("online")))
-//			{
-//				System.out.println("Please use the Mace Swinger Launcher to launch the game.");
-//				JOptionPane.showMessageDialog(null, "Please use the Mace Swinger Launcher to launch the game.", "", JOptionPane.PLAIN_MESSAGE);
-//				return;
-//			}
-//			if (flags.get("online").equals("true"))
-//			{
-//				String sessinfo = connect("sessinfo", new String[] { "sid" }, new String[] { flags.get("sid") });
-//				Scanner s = new Scanner(sessinfo);
-//				s.useDelimiter(":");
-//				boolean valid = s.hasNextLine() && s.nextBoolean();
-//				if (!valid || valid && s.nextInt() == 0)
-//				{
-//					System.out.println("Invalid session ID. Please login and launch the game through the launcher.");
-//					JOptionPane.showMessageDialog(null, "Invalid session ID. Please login and launch the game through the launcher.", "", JOptionPane.PLAIN_MESSAGE);
-//					return;
-//				}
-//			}
-//
-//			JOptionPane.showMessageDialog(null, "this is gaem", "", JOptionPane.PLAIN_MESSAGE);
-//			//System.exit(0);
-//
-//			fullscreen = flags.get("fullscreen").equals("true");
-//			//VSync = flags.get("vsync").equals("true");
-//		}
-//		catch (Exception e)
-//		{
-//			return;
-//		}
+		//		try
+		//		{
+		//			HashMap<String, String> flags = CommandsManager.parseFlags(args);
+		//			if ((flags.containsKey("online") && flags.get("online").equals("true") && !flags.containsKey("sid")) || (flags.containsKey("sid") && !flags.containsKey("online")))
+		//			{
+		//				System.out.println("Please use the Mace Swinger Launcher to launch the game.");
+		//				JOptionPane.showMessageDialog(null, "Please use the Mace Swinger Launcher to launch the game.", "", JOptionPane.PLAIN_MESSAGE);
+		//				return;
+		//			}
+		//			if (flags.get("online").equals("true"))
+		//			{
+		//				String sessinfo = connect("sessinfo", new String[] { "sid" }, new String[] { flags.get("sid") });
+		//				Scanner s = new Scanner(sessinfo);
+		//				s.useDelimiter(":");
+		//				boolean valid = s.hasNextLine() && s.nextBoolean();
+		//				if (!valid || valid && s.nextInt() == 0)
+		//				{
+		//					System.out.println("Invalid session ID. Please login and launch the game through the launcher.");
+		//					JOptionPane.showMessageDialog(null, "Invalid session ID. Please login and launch the game through the launcher.", "", JOptionPane.PLAIN_MESSAGE);
+		//					return;
+		//				}
+		//			}
+		//
+		//			JOptionPane.showMessageDialog(null, "this is gaem", "", JOptionPane.PLAIN_MESSAGE);
+		//			//System.exit(0);
+		//
+		//			fullscreen = flags.get("fullscreen").equals("true");
+		//			//VSync = flags.get("vsync").equals("true");
+		//		}
+		//		catch (Exception e)
+		//		{
+		//			return;
+		//		}
 		try
 		{
 			System.setProperty("org.lwjgl.librarypath", OSUtils.getDynamicStorageLocation() + "Mace Swinger" + File.separator + "lwjgl" + File.separator + OSUtils.getCurrentOS().toString().toLowerCase());

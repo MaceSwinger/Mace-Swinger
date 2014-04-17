@@ -13,16 +13,18 @@ import org.lwjgl.opengl.Display;
 
 import com.maceswinger.client.GameClient;
 
-public class CustomDisplay implements WindowListener {
+public class CustomDisplay implements WindowListener
+{
 
 	private static float yScale;
 	private static float xScale;
 
-	public void create(boolean isFullscreen) {
-		if (!isFullscreen) {
+	public void create(boolean isFullscreen)
+	{
+		if (!isFullscreen)
+		{
 			GameClient.frame.addWindowListener(this);
-			GameClient.canvas.setBounds(0, 0, (int) GameClient.width,
-					(int) GameClient.height);
+			GameClient.canvas.setBounds(0, 0, (int) GameClient.width, (int) GameClient.height);
 			GameClient.canvas.setIgnoreRepaint(true);
 			GameClient.canvas.setFocusable(true);
 
@@ -33,27 +35,36 @@ public class CustomDisplay implements WindowListener {
 			GameClient.canvas.requestFocus();
 			GameClient.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			GameClient.frame.setTitle("Mace Swinger");
+			GameClient.frame.setLocationRelativeTo(null);
 			BufferedImage img = null;
-			try {
-				img = ImageIO.read(this.getClass().getResourceAsStream(
-						"/shield.png"));
+			try
+			{
+				img = ImageIO.read(this.getClass().getResourceAsStream("/shield.png"));
 				GameClient.frame.setIconImage(img);
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 
 			System.out.println(GameClient.canvas.isDisplayable());
 
-			try {
+			try
+			{
 				Display.setParent(GameClient.canvas);
 				Display.create();
-			} catch (LWJGLException e) {
+			}
+			catch (LWJGLException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
+		}
+		else
+		{
 
-			try {
+			try
+			{
 				Display.setFullscreen(true);
 
 				Display.setTitle("Mace Swinger");
@@ -63,7 +74,9 @@ public class CustomDisplay implements WindowListener {
 				setyScale(GameClient.height / Display.getHeight());
 				setxScale(GameClient.width / Display.getWidth());
 				// Display.setParent(game.window);
-			} catch (LWJGLException e) {
+			}
+			catch (LWJGLException e)
+			{
 				System.err.println("Display creation failed :(");
 			}
 		}
@@ -72,57 +85,68 @@ public class CustomDisplay implements WindowListener {
 
 	}
 
-	public static float getxScale() {
+	public static float getxScale()
+	{
 		return xScale;
 	}
 
-	public static void setxScale(float xScale) {
+	public static void setxScale(float xScale)
+	{
 		CustomDisplay.xScale = xScale;
 	}
 
-	public static float getyScale() {
+	public static float getyScale()
+	{
 		return yScale;
 	}
 
-	public static void setyScale(float yScale) {
+	public static void setyScale(float yScale)
+	{
 		CustomDisplay.yScale = yScale;
 	}
 
 	@Override
-	public void windowActivated(WindowEvent arg0) {
+	public void windowActivated(WindowEvent arg0)
+	{
 
 	}
 
 	@Override
-	public void windowClosed(WindowEvent arg0) {
+	public void windowClosed(WindowEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowClosing(WindowEvent arg0) {
+	public void windowClosing(WindowEvent arg0)
+	{
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
+	public void windowDeactivated(WindowEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
+	public void windowDeiconified(WindowEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
+	public void windowIconified(WindowEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
+	public void windowOpened(WindowEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
