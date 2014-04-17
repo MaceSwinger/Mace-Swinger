@@ -18,6 +18,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 
 import com.maceswinger.gui.Gui;
+import com.maceswinger.gui.components.GuiButtonArray.Button;
 import com.maceswinger.utils.CustomMouse;
 import com.maceswinger.utils.Textures;
 
@@ -50,6 +51,7 @@ public class GuiTexturedButtonArray extends GuiComponent{
 		public boolean isAvailable = true;
 		private float x,y;
 		private float width,height;
+		private boolean isActive = true;
 		public TexturedButton(int id, int text,int ttext, float x, float y, float width, float height) {
 			this.id = id;
 			this.text = text;
@@ -68,7 +70,11 @@ public class GuiTexturedButtonArray extends GuiComponent{
 			
 		}
 		public void tick(){
-			if(CustomMouse.isButtonDown(0)&&isCustomMouseinBounds())parent.guiActionPerformed(id, 0);
+			if (isActive && CustomMouse.isButtonDown(0) && isCustomMouseinBounds()) {
+				parent.guiActionPerformed(id, 0);
+			} else if (!isCustomMouseinBounds()) {
+				isActive = true;
+			}
 		}
 	}
 		
@@ -117,7 +123,14 @@ public class GuiTexturedButtonArray extends GuiComponent{
 		}
 		
 	}
-
+	public void deactivate(int id) {
+		for (TexturedButton o : options) {
+			if (o.id == id) {
+				o.isActive = false;
+				return;
+			}
+		}
+	}
 	
 }
 

@@ -4,9 +4,9 @@ p:PlayerSpawn()
 e:GoblinSpawn(goblin)
 d:GoblinSpawn(dick)
 {
-           s s s             ;
-           s ss              ;
-           s ss              ;
+        s s s                ;
+        s ss                 ;
+        s ss                 ;
                              ;
                              ;
 g                  e         ;
