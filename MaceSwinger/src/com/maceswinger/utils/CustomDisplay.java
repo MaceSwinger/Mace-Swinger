@@ -1,19 +1,21 @@
 package com.maceswinger.utils;
 
+import java.awt.Component;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
 import com.maceswinger.client.GameClient;
 
-public class CustomDisplay implements WindowListener
+public class CustomDisplay extends WindowAdapter
 {
 
 	private static float yScale;
@@ -106,48 +108,15 @@ public class CustomDisplay implements WindowListener
 	}
 
 	@Override
-	public void windowActivated(WindowEvent arg0)
-	{
-
-	}
-
-	@Override
 	public void windowClosed(WindowEvent arg0)
 	{
-		// TODO Auto-generated method stub
-
+		GameClient.exit(0);
 	}
 
 	@Override
 	public void windowClosing(WindowEvent arg0)
 	{
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
+		if (JOptionPane.showConfirmDialog((Component) arg0.getSource(), "Are you sure you want to quit?", "Kompfirm pls", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			GameClient.exit(0);
 	}
 }

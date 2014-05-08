@@ -96,6 +96,13 @@ public class GameClient
 
 	public void run() throws LWJGLException
 	{
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
+		{
+			public void run()
+			{
+				GameClient.exit(0);
+			}
+		}));
 		//fullscreen=true;
 		canvas = new Canvas();
 		frame = new JFrame();
