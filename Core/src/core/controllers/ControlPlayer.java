@@ -8,7 +8,6 @@ import org.magnos.entity.vals.IntVal;
 import com.maceswinger.Components;
 import com.maceswinger.Vector2;
 import com.maceswinger.client.render.SpriteRenderer;
-import com.maceswinger.utils.Key;
 
 import core.Core;
 
@@ -18,20 +17,20 @@ public class ControlPlayer implements Control {
 		Vector2 velocity = e.get(Core.Components.velocity);
 		Vector2 pos = e.get(Components.position);
 		IntVal direction = e.get(Components.direction);
-		if (Key.isKeyDown(Key.JUMP))
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			Jump.jump(e, updateState, velocity);
-		if (Key.isKeyDown(Key.ATTACK)) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_X)) {
 			//Attack.attack(e, updateState, direction);
 		}
-		if (Key.isKeyDown(Key.LEFT)){ 
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)){ 
 			velocity.x -= 0.5f;
 			direction.v = 0;
 		}
-		if (Key.isKeyDown(Key.RIGHT)) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			velocity.x += 0.5f;
 			direction.v = 1;
 		}
-		if (Key.isKeyDown(Key.INVENTORY)) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
 			// open inventory
 		}
 

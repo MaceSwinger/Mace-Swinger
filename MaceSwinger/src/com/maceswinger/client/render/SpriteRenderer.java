@@ -1,5 +1,6 @@
 package com.maceswinger.client.render;
 
+import static org.lwjgl.opengl.GL11.*;
 import org.magnos.entity.Entity;
 import org.magnos.entity.Renderer;
 
@@ -38,9 +39,9 @@ public class SpriteRenderer implements Renderer
 		if (e.has(Components.position))
 		{
 			Vector2 pos = new Vector2(e.get(Components.position));
-			pos.x -= mainCamera.x;
-			pos.y -= mainCamera.y;
+			
 			t.draw(pos, col);
+
 		}
 	}
 

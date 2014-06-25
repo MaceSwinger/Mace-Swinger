@@ -28,6 +28,7 @@ public class CustomDisplay implements WindowListener {
 
 			GameClient.frame.add(GameClient.canvas);
 			GameClient.frame.pack();
+			GameClient.frame.setLocationRelativeTo(null);
 			GameClient.frame.setFocusable(true);
 			GameClient.frame.setVisible(true);
 			GameClient.canvas.requestFocus();

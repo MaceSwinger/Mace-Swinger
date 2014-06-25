@@ -7,6 +7,7 @@ import com.maceswinger.Animation;
 import com.maceswinger.Components;
 import com.maceswinger.Rectangle;
 import com.maceswinger.client.render.AnimationRenderer;
+import com.maceswinger.client.render.lighting.Block;
 import com.maceswinger.map.MapObject;
 
 public class Tile implements MapObject
@@ -17,7 +18,10 @@ public class Tile implements MapObject
 		Entity tile = new Entity();
 		tile.add(Components.animation);
 		tile.set(Components.animation, new Animation(new Animation.Frame(params[0], 50)));
-
+		
+		tile.add(Components.block);
+		tile.set(Components.block, new Block(32,32));
+		
 		tile.add(Components.position);
 		tile.add(core.Core.Components.collider);
 
