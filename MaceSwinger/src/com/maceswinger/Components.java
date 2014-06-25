@@ -4,10 +4,6 @@ import org.magnos.entity.Component;
 import org.magnos.entity.Ents;
 import org.magnos.entity.vals.IntVal;
 
-import com.maceswinger.Animation;
-import com.maceswinger.Color;
-import com.maceswinger.Sprite;
-import com.maceswinger.Vector2;
 import com.maceswinger.client.render.lighting.Block;
 import com.maceswinger.net.Register;
 
