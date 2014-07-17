@@ -1,3 +1,11 @@
+Need to be added to the MS directory:
+- Mod resource folder for easy loading
+- Custom levels folder, for saving and loading 
+- resource folder in game/res so mod textures can be added
+
+
+
+
 inventory (components):
 - no item stacking
 - gold pool

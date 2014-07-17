@@ -12,6 +12,7 @@ import com.maceswinger.map.MapObject;
 
 public class Tile implements MapObject
 {
+	
 	@Override
 	public Object spawn(EntityList list, int x, int y, String... params)
 	{
@@ -36,6 +37,6 @@ public class Tile implements MapObject
 
 	public String toString()
 	{
-		return "Tile";
+		return "tile";
 	}
 }

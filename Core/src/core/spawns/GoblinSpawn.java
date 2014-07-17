@@ -26,7 +26,6 @@ public class GoblinSpawn implements MapObject
 		goblin.add(Components.position);
 		goblin.add(Core.Components.velocity);
 		goblin.add(Core.Components.jumpCooldown);
-		goblin.add(Components.block);
 		
 		goblin.add(Core.Controllers.gravity);
 		goblin.add(Core.Controllers.goblinAi);
@@ -36,7 +35,6 @@ public class GoblinSpawn implements MapObject
 		goblin.set(Core.Components.collider, new Rectangle(x * 32 + 3, y * 32 + 1, 17, 48));
 		goblin.set(Components.position, new Vector2(x * 32, y * 32));
 		goblin.set(Core.Components.jumpCooldown, new IntVal(0));
-		goblin.set(Components.block, new Block(17,48));
 		goblin.setRenderer(new AnimationRenderer("mob"));
 
 		list.add(goblin);

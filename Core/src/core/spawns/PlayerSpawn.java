@@ -53,7 +53,7 @@ public class PlayerSpawn implements MapObject
 		player.add(Components.animation);
 		player.add(Components.position);
 		player.add(Components.direction);
-		player.add(Components.block);
+	
 		
 		
 		player.add(Components.heldItem);
@@ -66,7 +66,6 @@ public class PlayerSpawn implements MapObject
 		
 		player.set(Components.animation, new Animation(new Animation.Frame("player_walk_1", 5), new Animation.Frame("player_walk_2", 5), new Animation.Frame("player_walk_3", 5), new Animation.Frame("player_walk_4", 5)));
 		player.set(Components.position, new Vector2(x * 32, y * 32));
-		player.set(Components.block, new Block(17,48));
 		player.set(Components.direction, new IntVal(0));
 		//player.set(Components.heldItem, new ItemVal());
 		player.set(Core.Components.jumpCooldown, new IntVal(0));

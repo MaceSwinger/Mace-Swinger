@@ -17,6 +17,7 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL20.glUniform1f;
+import static org.lwjgl.opengl.GL20.glUniform1i;
 import static org.lwjgl.opengl.GL20.glUniform2f;
 import static org.lwjgl.opengl.GL20.glUniform3f;
 import static org.lwjgl.opengl.GL20.glUseProgram;
@@ -42,7 +43,6 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
-import org.magnos.entity.Component;
 import org.magnos.entity.Entity;
 import org.magnos.entity.EntityList;
 
@@ -204,7 +204,7 @@ public class GameClient {
 	}
 
 	private void tick() {
-		System.out.println(fps);
+		//System.out.println(fps);
 		if (!Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_P))
 			Sound.play(1, 1);
 		if (Sound.isPlaying[1] && Keyboard.isKeyDown(Keyboard.KEY_O))
@@ -233,14 +233,19 @@ public class GameClient {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glClearColor(0, 0, 0, 1);
-		float x = -SpriteRenderer.mainCamera.x;
-		float y = -SpriteRenderer.mainCamera.y;
+		float x = SpriteRenderer.mainCamera.x;
+		float y = SpriteRenderer.mainCamera.y;
 		glPushMatrix();
-		GL11.glTranslatef(x, y, 0);
+		GL11.glTranslatef(-x, -y, 0);
 		blocks.clear();
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.at(i);
 			if (e.has(Components.block) && e.has(Components.position)) {
+				Vector2 pos = e.get(Components.position);
+//				if(pos.x>-SpriteRenderer.mainCamera.x+200)continue;// TODO add something so only close entities are used
+//				if(pos.y>-SpriteRenderer.mainCamera.y+200)continue;
+//				if(pos.x<-SpriteRenderer.mainCamera.x-200)continue;
+//				if(pos.y<-SpriteRenderer.mainCamera.y-200)continue;
 				Block block = e.get(Components.block);
 				block.x = (int) e.get(Components.position).x;
 				block.y = (int) e.get(Components.position).y;
@@ -250,8 +255,8 @@ public class GameClient {
 		int n = 0;
 		for (Light light : lights) {
 			if (n == 0)
-				light.location.set(new Vector2f(CustomMouse.getX(), CustomMouse
-						.getY()));
+				light.location.set(new Vector2f(CustomMouse.getX()+x, CustomMouse
+						.getY()+y));
 			n++;
 			light.clear();
 			for (Block block : blocks) {
@@ -266,14 +271,14 @@ public class GameClient {
 				light.walls.add(new Wall(new Point(vertices[3], 0, 0),
 						new Point(vertices[0], 0, 0)));
 			}
-			light.walls.add(new Wall(new Point(new Vector2f(0, 0), 0, 0),
-					new Point(new Vector2f(0, height), 0, 0)));
+			light.walls.add(new Wall(new Point(new Vector2f(width-x,height-y), 0, 0),
+					new Point(new Vector2f(width-x, height+y), 0, 0)));
 			light.walls.add(new Wall(new Point(new Vector2f(0, height), 0, 0),
-					new Point(new Vector2f(width, height), 0, 0)));
-			light.walls.add(new Wall(new Point(new Vector2f(width, height), 0,
-					0), new Point(new Vector2f(width, 0), 0, 0)));
-			light.walls.add(new Wall(new Point(new Vector2f(width, 0), 0, 0),
-					new Point(new Vector2f(0, 0), 0, 0)));
+					new Point(new Vector2f(width+x, height+y), 0, 0)));
+			light.walls.add(new Wall(new Point(new Vector2f(width+x, height+y), 0,
+					0), new Point(new Vector2f(width+x, height-y), 0, 0)));
+			light.walls.add(new Wall(new Point(new Vector2f(width+x, height-y), 0, 0),
+					new Point(new Vector2f(width-x, height-y), 0, 0)));
 
 			for (Wall wall : light.walls) {
 				light.points.add(new Point(wall.start.pos, 0, 0));
@@ -316,15 +321,16 @@ public class GameClient {
 		for (Light light : lights) {
 			glUseProgram(lightProgram);
 			glUniform2f(glGetUniformLocation(lightProgram, "lightLocation"),
-					(light.location.getX() + x) / CustomDisplay.getxScale(),
-					(light.location.getY() + y) / CustomDisplay.getyScale());
+					(light.location.getX() - x) / CustomDisplay.getxScale(),
+					(light.location.getY() - y) / CustomDisplay.getyScale());
 			glUniform3f(glGetUniformLocation(lightProgram, "lightColor"),
 					light.red, light.green, light.blue);
 			glUniform1f(glGetUniformLocation(lightProgram, "lightRadius"),
 					light.radius);
+			glBindTexture(GL_TEXTURE_2D,Textures.textureID[0]);
+			glUniform1i(glGetUniformLocation(lightProgram, "lookup"), 0);
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE, GL_ONE);
-			GL11.glLineWidth(20);
 			glColor3f(1, 0, 1);
 			glBegin(GL11.GL_TRIANGLE_STRIP);
 			for (Intersect i : light.intersects) {
@@ -456,17 +462,30 @@ public class GameClient {
 			System.out.println("Exited in: " + time + " ms");
 
 			System.exit(0);
+			break;
+		case 1:
+			System.err.println("Exciting due to error!");
+			long startTime1 = System.currentTimeMillis();
+			Textures.deleteAll();
+			Sound.deleteSounds();
+			AL.destroy();
+			Display.destroy();
+			long endTime1 = System.currentTimeMillis();
+			long time1 = endTime1 - startTime1;
+			System.out.println("Exited in: " + time1 + " ms");
 
+			System.exit(0);
+			break;
 		}
 	}
 
 	public void startGame() {
 
-		for (int i = 1; i <= 2; i++) {
+		for (int i = 1; i <= 1; i++) {
 			Vector2f location = new Vector2f((float) Math.random() * width,
 					(float) Math.random() * height);
-			lights.add(new Light(location, 1, (float) Math.random() * 10,
-					(float) Math.random() * 10, (float) Math.random() * 10));
+			lights.add(new Light(location, 20, 1,
+					1, 1));
 		}
 
 		new Thread(new Runnable() {

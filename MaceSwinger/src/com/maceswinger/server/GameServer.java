@@ -83,7 +83,7 @@ public class GameServer
 			shell.portInUse(port);
 			return;
 		}
-		MapLoader.loadMap(entities, "map/test.map");
+		MapLoader.loadMap(entities, "map/bant.map");
 		server.addListener(new Listener.LagListener(100, 300, new Listener()
 		{
 			@Override
@@ -137,48 +137,48 @@ public class GameServer
 		server.stop();
 	}
 
-	public static void main(String[] args)
-	{
-		new GameServer(new ServerShell()
-		{
-
-			@Override
-			public void clientDisconnected(Client c)
-			{
-				System.out.println(c.getUsername() + " disconnected");
-			}
-
-			@Override
-			public void clientConnected(Client c)
-			{
-				System.out.println(c.getUsername() + " connected");
-			}
-
-			@Override
-			public void serverStarted(int port)
-			{
-				System.out.println("Server started " + port);
-			}
-
-			@Override
-			public void serverStopped()
-			{
-				System.out.println("Server stopped");
-			}
-
-			@Override
-			public void message(Client c, String message)
-			{
-				System.out.println(c.getUsername() + ": " + message);
-			}
-
-			@Override
-			public void portInUse(int port)
-			{
-				System.out.println("Unable to lock port: " + port + ", is another server running?");
-			}
-		}).run(2650);
-	}
+//	public static void main(String[] args)
+//	{
+//		new GameServer(new ServerShell()
+//		{
+//
+//			@Override
+//			public void clientDisconnected(Client c)
+//			{
+//				System.out.println(c.getUsername() + " disconnected");
+//			}
+//
+//			@Override
+//			public void clientConnected(Client c)
+//			{
+//				System.out.println(c.getUsername() + " connected");
+//			}
+//
+//			@Override
+//			public void serverStarted(int port)
+//			{
+//				System.out.println("Server started " + port);
+//			}
+//
+//			@Override
+//			public void serverStopped()
+//			{
+//				System.out.println("Server stopped");
+//			}
+//
+//			@Override
+//			public void message(Client c, String message)
+//			{
+//				System.out.println(c.getUsername() + ": " + message);
+//			}
+//
+//			@Override
+//			public void portInUse(int port)
+//			{
+//				System.out.println("Unable to lock port: " + port + ", is another server running?");
+//			}
+//		}).run(2650);
+//	}
 
 	public void stop()
 	{

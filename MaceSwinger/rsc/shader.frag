@@ -2,6 +2,10 @@ uniform vec2 lightLocation;
 uniform vec3 lightColor;
 uniform float lightRadius;
 
+
+varying vec4 varyingVertex;
+
+
 void main() {
 	float distance = length(lightLocation - gl_FragCoord.xy);
 	float attenuation = lightRadius / (distance/2.00);
@@ -9,3 +13,6 @@ void main() {
 
 	gl_FragColor = color;
 }
+
+
+
