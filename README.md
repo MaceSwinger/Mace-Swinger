@@ -15,7 +15,7 @@ The game is split up into projects:
 
 Unfortunately we couldn't keep working on the game. We didn't want the project to die though so we decided to make the code open source. Feel free to fork it and make some cool stuff.
 
-We'd like to thank all the people that helped us over the course of the development and of course, all our fans for the tremendous support they've lent.
+We'd like to thank all the people that helped us over the course of the development and of course, all our fans for the tremendous support they've lent. Further information can be found in the [credits](https://github.com/MaceSwinger/Mace-Swinger/blob/master/CREDITS.md).
 
 Feel free to get in touch with us on twitter [@MaceSwingerGame](https://twitter.com/MaceSwingerGame) with any questions.
 
